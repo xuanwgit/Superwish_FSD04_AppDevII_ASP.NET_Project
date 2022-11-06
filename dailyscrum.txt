@@ -1,0 +1,32 @@
+2022/11/03 Xuan
+1. Done / not done since last scrum:
+- Created a test demo of Azure database
+2. To do until next Scrum:
+- Creating the index page based on the bakery demo
+- Link to the database using Azure
+3. Need assistance / figure things out
+N/A
+
+
+2022/11/03 Edgar
+
+
+
+2022/11/03 Kristy
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+2022/11/02 Xuan
+1. Done / not done since last scrum:
+- Created a test demo of Azure database
+2. To do until next Scrum:
+- Creating index page
+3. Need assistance / figure things out
+N/A
+
+2022/11/02 Edgar
+
+
+
+2022/11/02 Kristy
