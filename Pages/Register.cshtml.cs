@@ -52,7 +52,7 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
                     var result = await userManager.CreateAsync(user, Input.Password);
                     if (result.Succeeded){
                         logger.LogInformation($"User {Input.Email} created a new accountwith password");
-                        return RedirectToPage("RegisterSuccess", new { email = Input.Email });
+                        return RedirectToPage("Login", new { email = Input.Email });
                     }
                     foreach (var error in result.Errors){
                         ModelState.AddModelError(string.Empty, error.Description);
