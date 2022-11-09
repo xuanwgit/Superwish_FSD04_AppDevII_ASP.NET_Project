@@ -21,6 +21,8 @@
         </div>
     </div>
 </div>
+
+
 <div id="itemsWrapper" class="row">
 @foreach (var item in Model.Items)
 {
@@ -33,8 +35,23 @@
             </div>
         </a>
         <div class="action">
-            <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
             <a class="btn btn-sm btn-danger order-button float-right" asp-page="/order" asp-route-id="@item.Id" title="Order @item.Name">Order Now</a>
+            <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
+            <p>  Qty : @item.QuantityRemaining  </p> 
+            @* <table>  
+                <tr>  
+                    <td>  
+                        <img src="Images/UP.png" height="20" width="20" onclick="@Model.Items.IncreaseQty" />  
+                    </td>  
+                </tr>  
+                <tr>  
+                    <td>  
+                        <img src="Images/Down.png" height="20" width="20" onclick="@Items.DecreaseQty" />  
+                    </td>  
+  
+                </tr>  
+            </table>   *@
+             
         </div>
     </div>
 
