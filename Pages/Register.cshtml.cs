@@ -50,10 +50,11 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
                 if(ModelState.IsValid){
                     var user = new IdentityUser { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true};
                     var result = await userManager.CreateAsync(user, Input.Password);
+
                     if (result.Succeeded){
-                        var result2 = await userManager.AddToRoleAsync(user,"user");
+                        var result2 = await userManager.AddToRoleAsync(user,"User");
                         if (result2.Succeeded){
-                            logger.LogInformation($"User {Input.Email} created a new accountwith password");
+                            logger.LogInformation($"User {Input.Email} create a new account with password");
                         return RedirectToPage("Login", new { email = Input.Email });
                         }else{
                             //FIX ME

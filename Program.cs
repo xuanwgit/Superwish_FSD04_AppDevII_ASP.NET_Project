@@ -69,11 +69,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-//SeedUsersAndRoles(userManager, roleManager);
+SeedUsersAndRoles(userManager, roleManager);
 
 app.MapRazorPages();
 
-using (var scope = app.Services.CreateScope()) {
+ /*using (var scope = app.Services.CreateScope()) {
     var services = scope.ServiceProvider;
 
     var context = services.GetRequiredService<ToysDbContext>();    
@@ -84,8 +84,8 @@ using (var scope = app.Services.CreateScope()) {
     var roleMgr = services.GetRequiredService<RoleManager<IdentityRole>>();  
 
     SeedUsersAndRoles.Initialize(context, userMgr, roleMgr).Wait();
-}
-/*private void SeedUsersAndRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) {
+}*/
+ void SeedUsersAndRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) {
     string[] rolesNameList = new string[] {"User", "Admin"};
     foreach (string roleName in rolesNameList) {
         if(!roleManager.RoleExistsAsync(roleName).Result) {
@@ -106,6 +106,6 @@ using (var scope = app.Services.CreateScope()) {
             userManager.AddToRoleAsync(user, "Admin").Wait();
         }
     }
-}*/
+}
 
 app.Run();

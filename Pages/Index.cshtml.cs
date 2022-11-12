@@ -32,7 +32,7 @@ public class IndexModel : PageModel
     public async Task OnGetAsync()
     {
         Items = await db.Items.ToListAsync();
-        FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));
+        //FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));
     }    
 
 // void IncreaseQty()  
