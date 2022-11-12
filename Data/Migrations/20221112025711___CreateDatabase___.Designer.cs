@@ -12,7 +12,7 @@ using Superwish_FSD04_AppDevII_ASP.NET_Project.Data;
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Data.Migrations
 {
     [DbContext(typeof(ToysDbContext))]
-    [Migration("20221106211043___CreateDatabase___")]
+    [Migration("20221112025711___CreateDatabase___")]
     partial class __CreateDatabase___
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

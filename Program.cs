@@ -1,7 +1,9 @@
 using Superwish_FSD04_AppDevII_ASP.NET_Project.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Azure.Storage.Blobs;
+using Superwish_FSD04_AppDevII_ASP.NET_Project.Helpers;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ToysDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSingleton( x => new BlobServiceClient(builder.Configuration.GetConnectionString("DefaultEndpointsProtocol=https;AccountName=toyblob;AccountKey=g5oN/2fdezyuFzzaMUYg+0r/lk3GPYvdMDd6Y3DGxIAqIGryrI7miqB7sl7tISgPJBN5IcBcszK5+ASt3MKX8A==;EndpointSuffix=core.windows.net")));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ToysDbContext>();
+    .AddRoles<IdentityRole>().AddDefaultUI()
+    .AddEntityFrameworkStores<ToysDbContext>().AddDefaultTokenProviders();
 var userManager = builder.Services.BuildServiceProvider().GetService<UserManager<IdentityUser>>();
 var roleManager = builder.Services.BuildServiceProvider().GetService<RoleManager<IdentityRole>>();
 
@@ -45,6 +48,8 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.AccessDeniedPath ="/AccessDenied";
     options.SlidingExpiration = true;
 });
+
+builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -62,10 +67,23 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 //SeedUsersAndRoles(userManager, roleManager);
 
 app.MapRazorPages();
 
+using (var scope = app.Services.CreateScope()) {
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<ToysDbContext>();    
+    
+    context.Database.Migrate();
+
+    var userMgr = services.GetRequiredService<UserManager<IdentityUser>>();  
+    var roleMgr = services.GetRequiredService<RoleManager<IdentityRole>>();  
+
+    SeedUsersAndRoles.Initialize(context, userMgr, roleMgr).Wait();
+}
 /*private void SeedUsersAndRoles(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) {
     string[] rolesNameList = new string[] {"User", "Admin"};
     foreach (string roleName in rolesNameList) {

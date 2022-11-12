@@ -40,4 +40,5 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Models
         [MaxLength(1000)]
         public string ImageUrl { get; set; }
     }
+
 }
