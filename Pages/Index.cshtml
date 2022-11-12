@@ -5,22 +5,7 @@
 }
 
 <h1>Welcome to SuperWish!</h1>
-<div id="featureditem" class="row"> 
-    <div class="col-sm-8">
-        <img alt="Featured Item" src="~/images/products/@Model.FeaturedItem.ImageUrl" class="img-fluid rounded"/>
-    </div>
-    <div id="featuredItemInfo" class="col-sm-4">
-        <div id="itemInfo">
-            <h2>@Model.FeaturedItem.Name</h2>
-            <p class="price">$@string.Format("{0:f}", Model.FeaturedItem.Price)</p>
-            <p class="description">@Model.FeaturedItem.Description</p>
-        </div>
-        <div id="callToAction">
 
-            <a class="btn btn-danger order-button" asp-page="/Cart" asp-route-id="@Model.FeaturedItem.Id" title="Cart @Model.FeaturedItem.Name">Order Now</a>
-        </div>
-    </div>
-</div>
 
 
 <div id="itemsWrapper" class="row">
@@ -35,7 +20,7 @@
             </div>
         </a>
         <div class="action">
-            <a class="btn btn-sm btn-danger order-button float-right" asp-page="/order" asp-route-id="@item.Id" title="Order @item.Name">Order Now</a>
+            <a class="btn btn-sm btn-danger order-button float-right" asp-page="/order" asp-route-id="@item.Id" title="Order @item.Name">Add to Cart</a>
             <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
             <p>  Qty : @item.QuantityRemaining  </p> 
             @* <table>  

@@ -16,7 +16,7 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
 
     private readonly ILogger<RegisterModel> logger;
-    
+
     private readonly ToysDbContext db;
 
     public IndexModel(ToysDbContext db,ILogger<IndexModel> logger1)
@@ -27,12 +27,12 @@ public class IndexModel : PageModel
 
     public List<Item> Items { get; set; } = new List<Item>();  
 
-    public Item FeaturedItem { get; set; } 
+    // public Item FeaturedItem { get; set; } 
     
     public async Task OnGetAsync()
     {
         Items = await db.Items.ToListAsync();
-        FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));
+        //FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));
     }    
 
 // void IncreaseQty()  
