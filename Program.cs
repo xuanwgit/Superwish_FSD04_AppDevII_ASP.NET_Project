@@ -51,6 +51,7 @@ builder.Services.ConfigureApplicationCookie(options => {
 
 builder.Services.Configure<AzureStorageConfig>(builder.Configuration.GetSection("AzureStorageConfig"));
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

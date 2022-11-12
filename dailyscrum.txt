@@ -1,11 +1,66 @@
----------------------------------------------------------------------------------------------------------------------------------
-2022/11/07 Xuan
+2022/11/08 Xuan
+1. Done / not done since last scrum:
+finished the index page and pushed to github
+
+2. To do until next Scrum:
+working on the cart page to display the selected items from the index page
+3. Need assistance / figure things out
+
+2022/11/08 Edgar
 1. Done / not done since last scrum:
 
 2. To do until next Scrum:
 
 3. Need assistance / figure things out
 
+2022/11/08 Kristy
+1. Done / not done since last scrum:
+Created new branch to implement stripe, implemented it, testing
+
+2. To do until next Scrum:
+Merge branch into project, style application 
+
+3. Need assistance / figure things out
+I might need more help with merge conflicts
+
+
+
+
+
+2022/11/08 Xuan
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+2022/11/08 Edgar
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+2022/11/08 Kristy
+1. Done / not done since last scrum:
+Implemented Stripe on repository I am using to test things on before commiting them to main
+Researched merge conflicts so I can work on actual repo 
+
+2. To do until next Scrum:
+Implement Stripe into actual repo for project
+
+3. Need assistance / figure things out
+Possibly more help with merge conflicts
+
+---------------------------------------------------------------------------------------------------------------------------------
+2022/11/07 Xuan
+1. Done / not done since last scrum:
+Watched the videos of MVC tutorial;
+added dummy data in the database
+2. To do until next Scrum:
+Tried MVC framework
+3. Need assistance / figure things out
+The error message of the userlogin identity 
 
 2022/11/07 Edgar
 1. Done / not done since last scrum:
@@ -31,9 +86,10 @@
 ---------------------------------------------------------------------------------------------------------------------------------
 2022/11/05 Xuan
 1. Done / not done since last scrum:
+Working on the database connection on Azure 
 
 2. To do until next Scrum:
-
+Finish the functionality of the index page
 3. Need assistance / figure things out
 
 
