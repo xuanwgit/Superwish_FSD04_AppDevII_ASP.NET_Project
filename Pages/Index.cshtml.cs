@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -32,65 +32,8 @@ public class IndexModel : PageModel
     public async Task OnGetAsync()
     {
         Items = await db.Items.ToListAsync();
-        //FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));
+        //FeaturedItem=Items.First();
+        FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));   
     }    
-
-// void IncreaseQty()  
-//         {  
-//             if (SD.quantity > 0)  
-//             {  
-//                 SD.quantity = SD.quantity + 1;  
-//                 TotalAmount = ID.Price * SD.quantity;  
-
-//             }  
-//         }  
-
-//         void DecreaseQty()  
-//         {  
-//             if (SD.quantity > 1)  
-//             {  
-//                 SD.quantity = SD.quantity - 1;  
-//                 TotalAmount = ID.Price * SD.quantity;  
-//             }  
-//         } 
-
-    // @functions {  
-    //     string UserName = "Shanu";  
-    //     string selectItemImage = "";  
-    //     string selectedItemName = "";  
-        
-    //     decimal TotalAmount = 0;
-    //     string Messages = "";  
-
-    //     Cart_Item[] cart_Items;  
-    //     Item[] items;  
-
-    //     Cart_Item SD = new Cart_Item();  
-    //     Item ID = new Item();  
-
-    //     Boolean showAddtoCart = false;  
-
-    //     void IncreaseQty()  
-    //     {  
-    //         if (SD.quantity > 0)  
-    //         {  
-    //             SD.quantity = SD.quantity + 1;  
-    //             TotalAmount = ID.Price * SD.quantity;  
-
-    //         }  
-    //     }  
-
-    //     void DecreaseQty()  
-    //     {  
-    //         if (SD.quantity > 1)  
-    //         {  
-    //             SD.quantity = SD.quantity - 1;  
-    //             TotalAmount = ID.Price * SD.quantity;  
-    //         }  
-    //     } 
-
-        
-    // }
 }
-        
         
