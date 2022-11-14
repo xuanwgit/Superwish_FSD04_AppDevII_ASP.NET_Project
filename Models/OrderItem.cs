@@ -21,11 +21,9 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Models
         public Item item_id { get; set; }
 
         [Required]
-        [MaxLength(11)]
         public int quantity { get; set; }
 
         [Required]
-        [MaxLength(11)]
         public int price { get; set; }
     }
 }

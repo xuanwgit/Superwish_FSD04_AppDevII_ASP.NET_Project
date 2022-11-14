@@ -29,16 +29,14 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Models
         public string Description { get; set; }
 
         [Required]
-        [MaxLength(11)]
         public decimal Price { get; set; }
 
         [Required]
-        [MaxLength(11)]
         public int QuantityRemaining { get; set; }
 
         [Required]
         [MaxLength(1000)]
         public string ImageUrl { get; set; }
     }
-
+        
 }
