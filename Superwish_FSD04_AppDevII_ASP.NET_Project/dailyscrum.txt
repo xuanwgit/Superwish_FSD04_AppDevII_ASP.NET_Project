@@ -1,3 +1,68 @@
+
+    2022/11/14 Xuan
+1. Done / not done since last scrum:
+ Updated the presentation slides
+ updated UI of the index page
+ Finalize Trello board
+ Merged and finalize the code in github
+2. To do until next Scrum:
+N/A
+3. Need assistance / figure things out
+N/A
+
+-----------------------------------------------------------------------------------------
+2022/11/13 Edgar
+1. Done / not done since last scrum:
+  Roles done
+2. To do until next Scrum:
+  final sprint
+  Admin crud needs blob urls in database
+3. Need assistance / figure things out
+ N/A
+
+    2022/11/13 Xuan
+1. Done / not done since last scrum:
+ Create the logout page
+ Updated the nav bar 
+ Helping Kristy with the checkout page, to finish the basic functionalities of bringing the cart information to the checkout page. once paid the number of items in stock will be updated and the cart is emptied.
+2. To do until next Scrum:
+Merging the code with Edgar and prepare for the final presentation
+3. Need assistance / figure things out
+  checking tutorialls
+
+
+--------------------------------------------------------------------------------------------------
+  2022/11/12 Xuan
+1. Done / not done since last scrum:
+ Updated the index page and finished the cart page with all functionalities
+2. To do until next Scrum:
+ Try to get image displayed using the returned url
+3. Need assistance / figure things out
+  checking tutorialls
+
+
+
+--------------------------------------------------------------------------------------------------
+2022/11/11 Edgar
+1. Done / not done since last scrum:
+  Blob upload complete
+2. To do until next Scrum:
+  Roles and crud scaffolding
+3. Need assistance / figure things out
+  Will check tutorials when needed
+
+  2022/11/11 Xuan 
+1. Done / not done since last scrum:
+  Tested Blob uploading in the Azure Database
+  Tested using the returned url to display the images
+  Finishing the basic functionalities of the index page and getting the images displayed with hard-coded version
+2. To do until next Scrum:
+  Working on Cart Page
+3. Need assistance / figure things out
+  Will check tutorials when needed
+
+--------------------------------------------------------------------------------------------------
+
 2022/11/08 Xuan
 1. Done / not done since last scrum:
 finished the index page and pushed to github
@@ -5,13 +70,15 @@ finished the index page and pushed to github
 2. To do until next Scrum:
 working on the cart page to display the selected items from the index page
 3. Need assistance / figure things out
+NA
 
 2022/11/08 Edgar
 1. Done / not done since last scrum:
-
+  still working on Container
 2. To do until next Scrum:
-
+  fix upload
 3. Need assistance / figure things out
+  going through tutorials again for storage
 
 2022/11/08 Kristy
 1. Done / not done since last scrum:
