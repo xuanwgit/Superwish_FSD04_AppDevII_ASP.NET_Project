@@ -1,31 +1,37 @@
 ﻿@page
 @model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.CheckOutModel
 @{
+    ViewData["Title"] = "Checkout";
+}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Buy cool new product</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-  </head>
-  <body>
-    <section>
-      <div class="product">
-        <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
-        <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
+
+<nav id="itemsWrapper" class="shadow sidebar-offcanvas" style="width:500px;display: grid;float: center;">
+    @if (Model.Items != null && Model.Items.Count() > 0)
+    {
+    <div>@ViewData["tip"]</div>
+    @foreach (var item in Model.Items)
+        {
+    <div class="col-sm-2">
+        <div class="itemInfo" style="width:500px">
+            <div style="color:#888888;font-size:8px;">Name  <span style="color:#000;font-size:16px;">@item.itemId?.Name</span></div>
+            <div style="color:#888888;font-size:8px;">qty   <span style="color:#000;font-size:16px;">@item.quantity</span></div>
+            <div style="color:#888888;font-size:8px;">price <span style="color:#000;font-size:16px;">@item.itemId?.Price</span></div>
+            <div style="color:#888888;font-size:8px;">total <span style="color:#000;font-size:16px;">@(item.quantity*item.itemId.Price)</span></div>
+
         </div>
-      </div>
-      <form action="/create-checkout-session" method="POST">
-        <button type="submit" id="checkout-button">Checkout</button>
-      </form>
-    </section>
-  </body>
-</html>
+    </div>
+    <br><hr><br>
 
+        }
+    <div>pay : @Model.Items.Sum(x=>(x.quantity*x.itemId.Price))</div>
+    <div><a href="/CheckOut?action=checkout">pay</a></div>
+
+    }
+    @if (Model.Items == null || Model.Items.Count() == 0)
+    {
+    <div>@ViewData["tip"]</div>
+    }
+</nav>
 
 
 
