@@ -1,0 +1,62 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Welcome to SuperWish!</h1>
+<div id="featureditem" class="row"> 
+    <div class="col-sm-8">
+        <img alt="Featured Item" src="@Model.FeaturedItem.ImageUrl" class="img-fluid rounded"/>
+       
+    </div>
+    <div id="featuredItemInfo" class="col-sm-4">
+        <div id="itemInfo">
+            <h2>@Model.FeaturedItem.Name</h2>
+            <p class="price">$@string.Format("{0:f}", Model.FeaturedItem.Price)</p>
+            <p class="description">@Model.FeaturedItem.Description</p>
+        </div>
+        <div id="callToAction">
+
+            <a class="btn btn-danger order-button" asp-page="/Cart" asp-route-id="@Model.FeaturedItem.Id" title="Cart @Model.FeaturedItem.Name">Add to Cart</a>
+        </div>
+    </div>
+</div>
+<script>
+    function vchange(id)
+    {       
+       var stock=document.getElementById('stock '+id);
+        var qty = document.getElementById('quantity ' + id);
+        var val=qty.max- qty.value
+        stock.innerText=val;
+    }
+</script>
+
+<div id="itemsWrapper" class="row">
+@foreach (var item in Model.Items)
+{
+    <div class="col-sm-3">
+        <a asp-page="/Cart" asp-route-id="@item.Id" title="Order @item.Name">
+            <div class="itemInfo">
+                <h3>@item.Name</h3>
+                    <img class="item-image img-fluid img-thumbnail" src="@item.ImageUrl" alt="Image of @item.Name" />
+
+                <p class="description">@item.Description</p>
+            </div>
+        </a>
+        <div class="action">
+            <form action="/Cart" method="get">
+                <input type="hidden" value="@item.Id" name="Id" />
+                <input type="submit" name="action" class="btn btn-sm btn-danger order-button float-right"   value="Add to Cart" />
+                <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
+                    <p>  stock : <span id="stock @item.Id">@item.QuantityRemaining </span>
+
+    </p>
+                    <p>Qty:<input id="quantity @item.Id" name="quantity" type="number" value="0" min="0" max=@item.QuantityRemaining onchange="vchange('@item.Id')" /></p>
+           
+            </form>
+        </div>
+    </div>
+
+}
+</div>

@@ -1,0 +1,170 @@
+2022/11/08 Xuan
+1. Done / not done since last scrum:
+finished the index page and pushed to github
+
+2. To do until next Scrum:
+working on the cart page to display the selected items from the index page
+3. Need assistance / figure things out
+
+2022/11/08 Edgar
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+2022/11/08 Kristy
+1. Done / not done since last scrum:
+Created new branch to implement stripe, implemented it, testing
+
+2. To do until next Scrum:
+Merge branch into project, style application 
+
+3. Need assistance / figure things out
+I might need more help with merge conflicts
+
+
+
+
+
+2022/11/08 Xuan
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+2022/11/08 Edgar
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+2022/11/08 Kristy
+1. Done / not done since last scrum:
+Implemented Stripe on repository I am using to test things on before commiting them to main
+Researched merge conflicts so I can work on actual repo 
+
+2. To do until next Scrum:
+Implement Stripe into actual repo for project
+
+3. Need assistance / figure things out
+Possibly more help with merge conflicts
+
+---------------------------------------------------------------------------------------------------------------------------------
+2022/11/07 Xuan
+1. Done / not done since last scrum:
+Watched the videos of MVC tutorial;
+added dummy data in the database
+2. To do until next Scrum:
+Tried MVC framework
+3. Need assistance / figure things out
+The error message of the userlogin identity 
+
+2022/11/07 Edgar
+1. Done / not done since last scrum:
+- Added Register and Login
+- Updated Nav
+2. To do until next Scrum:
+- Set Up Blob and Link it to DB
+- Watch Videos on Roles
+3. Need assistance / figure things out
+- Asking around about wheter to set up a Factory
+  Or if there's a way to directly access a container
+  through SQl Server Management Studio
+
+
+2022/11/07 Kristy
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+2022/11/05 Xuan
+1. Done / not done since last scrum:
+Working on the database connection on Azure 
+
+2. To do until next Scrum:
+Finish the functionality of the index page
+3. Need assistance / figure things out
+
+
+2022/11/05 Edgar
+1. Done / not done since last scrum:
+- Created Models and Identity
+- Set Up Db and Linked to Project
+2. To do until next Scrum:
+- Add Register and Login
+- Update Nav
+3. Need assistance / figure things out
+- NA
+
+
+2022/11/05 Kristy
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+2022/11/03 Xuan
+1. Done / not done since last scrum:
+- Created a test demo of Azure database
+2. To do until next Scrum:
+- Creating the index page based on the bakery demo
+- Link to the database using Azure
+3. Need assistance / figure things out
+N/A
+
+
+2022/11/03 Edgar
+1. Done / not done since last scrum:
+- ERR and Project Proposal
+2. To do until next Scrum:
+- Create Azure Server and Database
+- Link to the database using Azure
+3. Need assistance / figure things out
+- More Videos
+
+
+2022/11/03 Kristy
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+2022/11/02 Xuan
+1. Done / not done since last scrum:
+- Created a test demo of Azure database
+2. To do until next Scrum:
+- Creating index page
+3. Need assistance / figure things out
+N/A
+
+2022/11/02 Edgar
+1. Done / not done since last scrum:
+- Just starting out
+2. To do until next Scrum:
+- Set up Proposal with Xuan and Kristy
+- Make ERR Diagram
+3. Need assistance / figure things out
+- Watch videos on how to set up Code
+  First db in Sql and Azure
+
+
+2022/11/02 Kristy
+1. Done / not done since last scrum:
+
+2. To do until next Scrum:
+
+3. Need assistance / figure things out
