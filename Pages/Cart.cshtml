@@ -19,9 +19,9 @@ ViewData["Title"] = "Cart";
         <form action="cart" method="get">
             <div class="itemInfo" style="width:150px">
                 <input type="hidden" name="Id" value="@item.Id">
-                <img class="item-image img-fluid img-thumbnail" src="@item.itemId?.ImageUrl" alt="Image of @item.itemId?.Name" />
-                <div style="color:#dddddd;font-size:8px;">Item Name <span style="color:#000;font-size:16px;">@item.itemId?.Name</span></div>
-                <input style="font-size:8px;" type="submit" value="delete" name="action">
+                <img  class="item-image img-fluid img-thumbnail" src="@item.itemId?.ImageUrl" alt="Image of @item.itemId?.Name" />
+                <div  style="color:#dddddd;font-size:8px;">Item Name <span style="color:#000;font-size:16px;">@item.itemId?.Name</span></div>
+                <input  style="font-size:8px;" type="submit" value="delete" name="action">
             </div>
         </form>
     </div>
