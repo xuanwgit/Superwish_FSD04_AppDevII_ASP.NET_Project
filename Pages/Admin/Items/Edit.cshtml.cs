@@ -17,8 +17,6 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
         {
             _context = context;
         }
-         [BindProperty]
-        public Category Category { get; set; }
 
         [BindProperty]
         public Item Item { get; set; }
@@ -56,20 +54,20 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemExists(Item.Id))
+                if (!ArticleExists(Item.Id))
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw ;
+                    throw;
                 }
             }
 
             return RedirectToPage("./Index");
         }
 
-        private bool ItemExists(int id)
+        private bool ArticleExists(int id)
         {
             return _context.Items.Any(e => e.Id == id);
         }

@@ -7,7 +7,7 @@
 <h1>Welcome to SuperWish!</h1>
 <div id="featureditem" class="row"> 
     <div class="col-sm-8">
-        <img alt="Featured Item" src="~/images/products/@Model.FeaturedItem.ImageUrl" class="img-fluid rounded"/>
+        <img alt="Featured Item" src="@Model.FeaturedItem.ImageUrl" class="img-fluid rounded"/>
        
     </div>
     <div id="featuredItemInfo" class="col-sm-4">
@@ -39,7 +39,7 @@
         <a asp-page="/Cart" asp-route-id="@item.Id" title="Order @item.Name">
             <div class="itemInfo">
                 <h3>@item.Name</h3>
-                    <img class="item-image img-fluid img-thumbnail" src="https://toyblob.blob.core.windows.net/toyblobcontainer/04ecb0d7d67486c4f0757f4aba42f8dd.jpg" alt="Image of @item.Name" />
+                    <img class="item-image img-fluid img-thumbnail" src="@item.ImageUrl" alt="Image of @item.Name" />
 
                 <p class="description">@item.Description</p>
             </div>

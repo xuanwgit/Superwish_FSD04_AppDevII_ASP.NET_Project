@@ -36,7 +36,8 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
         public int quantity { get; set; }
         [BindProperty(SupportsGet = true)]
         public string action { get; set; }
-        public async Task OnGetAsync()
+        
+        public  async Task OnGetAsync()
         {
             IdentityUser user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -46,8 +47,9 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
                 Response.Redirect("Login");
                 return;
             }
-            
-                switch (action)
+
+            var shops = db.Items.ToArray();
+            switch (action)
                 {
                 case "change":
                     {
@@ -72,7 +74,9 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
                         }
                     case "Add to Cart":
                         {
+                            
                             item = db.Items.Find(Id);
+                           
                             if (item != null)
                             {
                                 cartItem.Id = 0;
@@ -87,7 +91,6 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
                 }
 
 
-            var shps = db.Items.ToArray();
 
             Items = db.Cart_Items.Where(x=>x.userId.Id==user.Id).ToArray();
           
