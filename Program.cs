@@ -46,10 +46,10 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.SlidingExpiration = true;
 });
 
-
+//builder.WebHost.UseUrls("http://*:7243");
 
 var app = builder.Build();
-
+//app.Urls.Add("http://localhost:7243");
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

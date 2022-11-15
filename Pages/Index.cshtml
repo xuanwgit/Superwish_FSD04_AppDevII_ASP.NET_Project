@@ -8,6 +8,7 @@
 <div id="featureditem" class="row"> 
     <div class="col-sm-8">
         <img alt="Featured Item" src="~/images/products/@Model.FeaturedItem.ImageUrl" class="img-fluid rounded"/>
+       
     </div>
     <div id="featuredItemInfo" class="col-sm-4">
         <div id="itemInfo">
@@ -17,11 +18,19 @@
         </div>
         <div id="callToAction">
 
-            <a class="btn btn-danger order-button" asp-page="/Cart" asp-route-id="@Model.FeaturedItem.Id" title="Cart @Model.FeaturedItem.Name">Order Now</a>
+            <a class="btn btn-danger order-button" asp-page="/Cart" asp-route-id="@Model.FeaturedItem.Id" title="Cart @Model.FeaturedItem.Name">Add to Cart</a>
         </div>
     </div>
 </div>
-
+<script>
+    function vchange(id)
+    {       
+       var stock=document.getElementById('stock '+id);
+        var qty = document.getElementById('quantity ' + id);
+        var val=qty.max- qty.value
+        stock.innerText=val;
+    }
+</script>
 
 <div id="itemsWrapper" class="row">
 @foreach (var item in Model.Items)
@@ -30,28 +39,22 @@
         <a asp-page="/Cart" asp-route-id="@item.Id" title="Order @item.Name">
             <div class="itemInfo">
                 <h3>@item.Name</h3>
-                <img class="item-image img-fluid img-thumbnail" src="~/Images/Products/Thumbnails/@item.ImageUrl" alt="Image of @item.Name" />
+                    <img class="item-image img-fluid img-thumbnail" src="https://toyblob.blob.core.windows.net/toyblobcontainer/04ecb0d7d67486c4f0757f4aba42f8dd.jpg" alt="Image of @item.Name" />
+
                 <p class="description">@item.Description</p>
             </div>
         </a>
         <div class="action">
-            <a class="btn btn-sm btn-danger order-button float-right" asp-page="/order" asp-route-id="@item.Id" title="Order @item.Name">Order Now</a>
-            <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
-            <p>  Qty : @item.QuantityRemaining  </p> 
-            @* <table>  
-                <tr>  
-                    <td>  
-                        <img src="Images/UP.png" height="20" width="20" onclick="@Model.Items.IncreaseQty" />  
-                    </td>  
-                </tr>  
-                <tr>  
-                    <td>  
-                        <img src="Images/Down.png" height="20" width="20" onclick="@Items.DecreaseQty" />  
-                    </td>  
-  
-                </tr>  
-            </table>   *@
-             
+            <form action="/Cart" method="get">
+                <input type="hidden" value="@item.Id" name="Id" />
+                <input type="submit" name="action" class="btn btn-sm btn-danger order-button float-right"   value="Add to Cart" />
+                <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
+                    <p>  stock : <span id="stock @item.Id">@item.QuantityRemaining </span>
+
+    </p>
+                    <p>Qty:<input id="quantity @item.Id" name="quantity" type="number" value="0" min="0" max=@item.QuantityRemaining onchange="vchange('@item.Id')" /></p>
+           
+            </form>
         </div>
     </div>
 

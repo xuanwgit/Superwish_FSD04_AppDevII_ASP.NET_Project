@@ -7,14 +7,15 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
 {
     public class LoginModel : PageModel
     {
-private readonly SignInManager<IdentityUser> signInManager;
+        public static string Login = "Login";
+        private readonly SignInManager<IdentityUser> signInManager;
 
         private readonly ILogger<RegisterModel> logger;
 
-       /* public LogInModel (SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger) {
+        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger) {
                 this.signInManager = signInManager;
                 this.logger = logger;
-        }*/
+        }
 
         [BindProperty]
         public InputModel Input{ get; set; }
@@ -35,9 +36,10 @@ private readonly SignInManager<IdentityUser> signInManager;
                 if(ModelState.IsValid){
                     var result = await signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, true);
                     if (result.Succeeded){
+                        Login = "Logout";
                         logger.LogInformation($"User {Input.Email} Logged In");
-                        return RedirectToPage("LogInSuccess");
-                    }
+                        return RedirectToPage("Index");//return RedirectToPage("LogInSuccess");
+                }
                     else{
                         ModelState.AddModelError(string.Empty, "Login failed");
                     }
