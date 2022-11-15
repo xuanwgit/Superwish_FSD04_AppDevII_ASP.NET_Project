@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Logging;
 
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
 {
@@ -10,9 +11,11 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
         public static string Login = "Login";
         private readonly SignInManager<IdentityUser> signInManager;
 
+
         private readonly ILogger<RegisterModel> logger;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger) {
+        public LoginModel (SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger) {
                 this.signInManager = signInManager;
                 this.logger = logger;
         }
@@ -40,6 +43,8 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
                         logger.LogInformation($"User {Input.Email} Logged In");
                         return RedirectToPage("Index");//return RedirectToPage("LogInSuccess");
                 }
+                        return RedirectToPage("Index");
+                    }
                     else{
                         ModelState.AddModelError(string.Empty, "Login failed");
                     }

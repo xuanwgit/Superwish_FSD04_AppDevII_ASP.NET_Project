@@ -1,25 +1,33 @@
-using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
 {
-    public class LogoutModel : PageModel
+     public class LogoutModel : PageModel
     {
-        private readonly ILogger<LogoutModel> logger;
+    private readonly SignInManager<IdentityUser> signInManager;
+        private readonly ILogger<RegisterModel> logger;
 
-
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
-        {
-            this._signInManager = signInManager;
+        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<RegisterModel> logger) {
+            this.signInManager = signInManager;
             this.logger = logger;
         }
-        public async  void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            LoginModel.Login = "Login";
-            await _signInManager.SignOutAsync();
+            // TODO: log user information if user was logged in
+            if (signInManager.IsSignedIn(User)) {
+                logger.LogInformation($"User {User.Identity.Name} logged out");
+            }
+            await signInManager.SignOutAsync();
+            // FIXME: This page renders as if user was still logged in
+            return Page();
+            // MAYBE: redirect to Index with Flash Message confirming user logged out
         }
     }
 }

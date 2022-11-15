@@ -15,8 +15,10 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
 
         private readonly UserManager<IdentityUser> _userManager;
         public Cart_Item[] Items { get; set; }
+        public Cart_Item[] Items { get; set; }
         public CartModel(ToysDbContext db,ILogger<CartModel> logger1, UserManager<IdentityUser> userManager)
         {
+            if (cartItem == null) cartItem = new Cart_Item();
             if (cartItem == null) cartItem = new Cart_Item();
             this.db = db;
             logger = logger1;
@@ -95,3 +97,4 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
         
     }
 }
+

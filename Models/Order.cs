@@ -21,7 +21,6 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Models
         public IdentityUser User_Id { get; set; }
 
         [Required]
-        [MaxLength(11)]
         public decimal Total { get; set; }
 
         [Required]

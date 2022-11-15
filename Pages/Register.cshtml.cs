@@ -48,11 +48,18 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages
 
         public async Task<IActionResult> OnPostAsync() {
                 if(ModelState.IsValid){
-                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email, EmailConfirmed = true};
                     var result = await userManager.CreateAsync(user, Input.Password);
+
                     if (result.Succeeded){
-                        logger.LogInformation($"User {Input.Email} created a new accountwith password");
+                        var result2 = await userManager.AddToRoleAsync(user,"User");
+                        if (result2.Succeeded){
+                            logger.LogInformation($"User {Input.Email} create a new account with password");
                         return RedirectToPage("Login", new { email = Input.Email });
+                        }else{
+                            //FIX ME
+                        }
+                        
                     }
                     foreach (var error in result.Errors){
                         ModelState.AddModelError(string.Empty, error.Description);

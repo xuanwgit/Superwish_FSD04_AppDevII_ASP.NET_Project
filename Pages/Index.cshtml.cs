@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -36,5 +36,4 @@ public class IndexModel : PageModel
         FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));   
     }    
 }
-        
         
