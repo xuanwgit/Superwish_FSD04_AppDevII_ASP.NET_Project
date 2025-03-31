@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ToysDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ToysDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSingleton( x => new BlobServiceClient(builder.Configuration.GetConnectionString("DefaultEndpointsProtocol=https;AccountName=toyblob;AccountKey=g5oN/2fdezyuFzzaMUYg+0r/lk3GPYvdMDd6Y3DGxIAqIGryrI7miqB7sl7tISgPJBN5IcBcszK5+ASt3MKX8A==;EndpointSuffix=core.windows.net")));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
