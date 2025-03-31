@@ -395,3 +395,11 @@ FodyWeavers.xsd
 *.msp
 
 # JetBrains Ride
+
+# Ignore appsettings files with sensitive data
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+
+# Keep appsettings example file
+!appsettings.example.json
