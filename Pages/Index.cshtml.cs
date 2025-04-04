@@ -8,32 +8,38 @@ using Microsoft.EntityFrameworkCore;
 using Superwish_FSD04_AppDevII_ASP.NET_Project.Data;
 using Superwish_FSD04_AppDevII_ASP.NET_Project.Models;
 
-
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages;
 
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
+    private readonly ApplicationDbContext _db;
 
-    private readonly ILogger<RegisterModel> logger;
-    
-    private readonly ToysDbContext db;
-
-    public IndexModel(ToysDbContext db,ILogger<IndexModel> logger1)
+    public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext db)
     {
-        this.db = db;
-        _logger = logger1;
+        _logger = logger;
+        _db = db;
     }
 
-    public List<Item> Items { get; set; } = new List<Item>();  
+    public List<Item> Items { get; set; } = new List<Item>();
+    public List<Item> InStockItems { get; set; } = new List<Item>();
+    public List<Item> OutOfStockItems { get; set; } = new List<Item>();
+    public Item? FeaturedItem { get; set; }
 
-    public Item FeaturedItem { get; set; } 
-    
     public async Task OnGetAsync()
     {
-        Items = await db.Items.ToListAsync();
-        //FeaturedItem=Items.First();
-        FeaturedItem = Items.ElementAt(new Random().Next(Items.Count));   
-    }    
+        // Get all items including their categories
+        Items = await _db.Items.Include(i => i.Category).ToListAsync();
+        
+        // Separate items by stock status
+        InStockItems = Items.Where(i => i.QuantityRemaining > 0).ToList();
+        OutOfStockItems = Items.Where(i => i.QuantityRemaining <= 0).ToList();
+
+        // Set featured item only from in-stock items
+        if (InStockItems.Any())
+        {
+            FeaturedItem = InStockItems.ElementAt(new Random().Next(InStockItems.Count));
+        }
+    }
 }
         

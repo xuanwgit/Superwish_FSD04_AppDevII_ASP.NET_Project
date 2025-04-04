@@ -5,72 +5,935 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Superwish_FSD04_AppDevII_ASP.NET_Project</title>
+    <title>@ViewData["Title"] - Superwish Toys</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Superwish_FSD04_AppDevII_ASP.NET_Project.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* Update root variables with Plumeti style */
+        :root {
+            --background-color: #FFFFFF;
+            --text-color: #333333;
+            --secondary-text: #666666;
+            --border-color: #EEEEEE;
+            --accent-color: #A5C7C5;  /* Soft teal */
+            --hover-color: #F5F5F5;
+        }
+
+        /* Typography updates */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            letter-spacing: 0.02em;
+            font-weight: 300;
+            font-size: 14px;
+        }
+
+        /* Navigation and Header Styles */
+        .navbar {
+            background-color: var(--background-color);
+            padding: 0;
+            border: none;
+            position: relative;
+            z-index: 999;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .navbar-brand {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            width: 100%;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 0.5rem 1rem !important;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        /* Footer Styles */
+        .footer-container {
+            background-color: var(--background-color);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-section h3 {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        /* Site wrapper */
+        .site-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Main content */
+        main {
+            flex: 1 0 auto;
+            padding: 2rem 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Utility bar */
+        .utility-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            background-color: var(--background-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .utility-bar a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 1rem;
+        }
+
+        /* Announcement bar */
+        .announcement-bar {
+            background-color: var(--text-color);
+            color: var(--background-color);
+            text-align: center;
+            padding: 0.8rem;
+            position: relative;
+        }
+
+        .announcement-close {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--background-color);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            display: none;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 200px;
+            padding: 40px;
+            width: calc(100% - 200px);
+        }
+
+        .featured-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 400;
+            margin: 40px 0 30px;
+            color: var(--text-color);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            text-align: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .product-title {
+            font-size: 14px;
+            color: var(--text-color);
+            margin: 10px 0 5px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            color: var(--brown);
+        }
+
+        .sold-out {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* Decorative circles */
+        .circle-decoration {
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .circle-mint {
+            background-color: var(--mint-green);
+            width: 200px;
+            height: 200px;
+            top: 50px;
+            left: -100px;
+        }
+
+        .circle-yellow {
+            background-color: var(--light-yellow);
+            width: 300px;
+            height: 300px;
+            top: 200px;
+            right: -150px;
+        }
+
+        .circle-pink {
+            background-color: var(--soft-pink);
+            width: 250px;
+            height: 250px;
+            bottom: 100px;
+            left: 10%;
+        }
+
+        /* Category grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid var(--mint-green);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .category-label {
+            background-color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* New label */
+        .new-label {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--soft-pink);
+            color: white;
+            padding: 20px;
+            border-radius: 50%;
+            transform: rotate(-15deg);
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        /* Top bar */
+        .top-bar {
+            background-color: var(--mint-green);
+            padding: 5px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-bar a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Logo and Navigation */
+        .navbar {
+            background: none;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .navbar-brand {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .navbar-brand img {
+            height: 60px;
+            width: auto;
+        }
+
+        .nav-menu {
+            background-color: var(--mint-green);
+            border-radius: 30px;
+            padding: 10px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0 auto;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .nav-link {
+            color: #333333 !important;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 15px !important;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #666666 !important;
+        }
+
+        /* Main content area */
+        .main-content {
+            padding: 40px 0;
+            position: relative;
+        }
+
+        /* Decorative circles */
+        .circle-decoration {
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .circle-mint {
+            background-color: var(--mint-green);
+            width: 200px;
+            height: 200px;
+            top: 50px;
+            left: -100px;
+        }
+
+        .circle-yellow {
+            background-color: var(--light-yellow);
+            width: 300px;
+            height: 300px;
+            top: 200px;
+            right: -150px;
+        }
+
+        .circle-pink {
+            background-color: var(--soft-pink);
+            width: 250px;
+            height: 250px;
+            bottom: 100px;
+            left: 10%;
+        }
+
+        /* Category grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .category-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .category-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--text-color);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            font-weight: 400;
+            padding: 0.8rem 2rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-section h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section a {
+            color: var(--secondary-text);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        /* Announcement bar */
+        .announcement-bar {
+            background-color: var(--text-color);
+            color: var(--background-color);
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-wrapper {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .announcement-close {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .announcement-close:hover {
+            opacity: 1;
+        }
+
+        /* Cart icon */
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Button styles */
+        .btn-primary, .btn-secondary {
+            border-radius: 0;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+            color: var(--text-color);
+            padding: 0.6rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: var(--background-color);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+
+        /* Override any remaining bootstrap blue colors */
+        .btn-primary, 
+        .btn-primary:focus,
+        .btn-primary:active {
+            background-color: var(--accent-color) !important;
+            border-color: var(--accent-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover) !important;
+            border-color: var(--accent-hover) !important;
+        }
+
+        .alert-info {
+            background-color: var(--background-color) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        /* Dropdown specific styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.255em;
+            vertical-align: 0.255em;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0.8rem 0;
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            animation: dropdownFade 0.2s ease;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 0.7rem 1.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--background-color);
+            color: var(--accent-hover);
+            padding-left: 2rem;
+        }
+
+        .dropdown-item:hover::before {
+            content: '';
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--accent-hover);
+        }
+
+        /* Link styles */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: none;
+        }
+
+        /* Alert styles */
+        .alert {
+            border-radius: 0;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: none;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        .alert h4 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .alert p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Update headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Mobile menu styles */
+        @@media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 0;
+                background-color: var(--background-color);
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .nav-link {
+                padding: 0.5rem !important;
+                font-size: 0.9rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .navbar-brand {
+                margin: 0.5rem 0;
+            }
+
+            .navbar-brand img {
+                height: 40px;
+            }
+        }
+
+        /* Update the utility bar section */
+        .utility-bar {
+            <div>Free shipping on orders over $50</div>
+            <div>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <a href="/Account/Manage" class="me-3">My Account</a>
+                    <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-link p-0">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <a href="/Login" class="me-3">Login</a>
+                }
+                <a href="/Cart" class="cart-icon">
+                    <i class="bi bi-bag"></i>
+                    <vc:cart-count></vc:cart-count>
+                </a>
+            </div>
+        }
+
+        /* Add these styles in the <style> section */
+        .btn-link.nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 13px;
+            margin-left: 1rem;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .btn-link.nav-link:hover {
+            color: var(--accent-color);
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <img class="img-fluid" src="/images/brand.png" alt="Superwish" /></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <ul class="navbar-nav ml-auto">
-                            @if (signInManager.IsSignedIn(User))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="Logout">Log out</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="Upload">Upload</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="Admin/Index">Admin</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="Cart">Cart</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="Register">Register</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="Login">Login</a>
-                                </li>
-                            }
-                        </ul>
+    <div class="site-wrapper">
+        <div class="announcement-bar" id="announcement">
+            <span>ENTER CODE SUMMERHEAT5 TO SAVE 25% OFF. LAST DAY! *EXCLUDES PLUSHIES</span>
+            <button class="announcement-close" onclick="closeAnnouncement()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        
+        <header>
+            <div class="utility-bar">
+                <div>Free shipping on orders over $50</div>
+                <div>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a href="/Account/Manage" class="me-3">My Account</a>
+                        <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-link p-0">Logout</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a href="/Login" class="me-3">Login</a>
+                    }
+                    <a href="/Cart" class="cart-icon">
+                        <i class="bi bi-bag"></i>
+                        <vc:cart-count></vc:cart-count>
+                    </a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+            <nav class="navbar">
+                <div class="nav-container">
+                    <div class="navbar-brand">
+                        <img src="~/images/brand.PNG" alt="Superwish Toys">
+                    </div>
+                    <div class="nav-menu">
+                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="#">New</a>
+                        <a class="nav-link" href="#">Toys</a>
+                        <a class="nav-link" href="#">Baby Gifts</a>
+                        <a class="nav-link" href="#">Food & Drink</a>
+                        <a class="nav-link" href="#">Play</a>
+                        <a class="nav-link" href="#">Information</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Superwish_FSD04_AppDevII_ASP.NET_Project - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+        <main role="main">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
+
+        <footer class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Superwish Toys</h3>
+                    <ul>
+                        <li><a href="/About">Our Story</a></li>
+                        <li><a href="/Contact">Contact Us</a></li>
+                        <li><a href="/FAQ">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="/Categories/Plushes">Plushes</a></li>
+                        <li><a href="/Categories/Prints">Prints</a></li>
+                        <li><a href="/Categories/PushToys">Push Toys</a></li>
+                        <li><a href="/Categories/Teethers">Teethers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="/Shipping">Shipping</a></li>
+                        <li><a href="/Returns">Returns & Exchanges</a></li>
+                        <li><a href="/Privacy">Privacy Policy</a></li>
+                        <li><a href="/Terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Pinterest</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; @DateTime.Now.Year - Superwish Toys. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        function closeAnnouncement() {
+            const announcement = document.getElementById('announcement');
+            announcement.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navContainer = document.querySelector('.nav-container');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                navContainer.classList.toggle('mobile-hidden');
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

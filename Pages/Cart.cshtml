@@ -1,66 +1,140 @@
 @page
 @model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.CartModel
 @{
-ViewData["Title"] = "Cart";
+    ViewData["Title"] = "Shopping Cart";
 }
-<script>
-    function vchange(id) {
-        var stock = document.getElementById('stock ' + id);
-        var qty = document.getElementById('quantity ' + id);
-        var val = qty.max - qty.value
-        stock.innerText = val;
-    }
-</script>
 
-<nav id="itemsWrapper" class="shadow sidebar-offcanvas" style="width:150px;display: grid;float: left;">
-@if(Model.Items!=null)foreach (var item in Model.Items)
-{
-    <div class="col-sm-3">
-       <form action="cart" method="get">
-            <div class="itemInfo" style="width:150px">
-                <input type="hidden" name="Id" value="@item.Id">
-                <img  class="item-image img-fluid img-thumbnail" src="~/Images/Products/Thumbnails/@item.itemId?.ImageUrl" alt="Image of @item.itemId?.Name" />
-                <div  style="color:#dddddd;font-size:8px;">Item Name <span style="color:#000;font-size:16px;">@item.itemId?.Name</span></div>
-                <input  style="font-size:8px;" type="submit" value="delete" name="action">
-            </div>
-        </form>
-    </div>
-        <hr />
+<div class="container">
+    <h1 class="mb-4">Shopping Cart</h1>
 
-}
-</nav>
-<div class="shadow" style="width: 700px;display: inline;float: left;margin-left: 10px;">
-    <div class="content-wrapper" >
-        @if (Model.Items != null) 
-        {
-            @foreach (var item in Model.Items)
-            {
-                <form action="cart" method="get">
-                    <div class="col-sm-3" style="margin: auto;">      
-                        <div class="itemInfo" style="width:150px;">
-                            <input type="hidden" name="Id" value="@item.Id">
-                            <img  class="item-image img-fluid img-thumbnail" src="~/Images/Products/Thumbnails/@item.itemId?.ImageUrl" alt="Image of @item.itemId?.Name" />
-                            <div  style="color:#dddddd;font-size:8px;">Item Name <span style="color:#000;font-size:16px;">@item.itemId?.Name</span></div>
-                            <div  style="color:#dddddd;font-size:8px;">Description <span style="color:#000;font-size:16px;">@item.itemId?.Description</span></div>
-                            <div  style="color:#dddddd;font-size:8px;">Price <span style="color:#000;font-size:16px;">@item.itemId?.Price</span></div>
-                            <div  style="color:#dddddd;font-size:8px;">Stock <span id="stock @item.Id" style="color:#000;font-size:16px;">@item.itemId?.QuantityRemaining</span></div>
-                            <div style="color:#dddddd;font-size:8px;display:flex">Qty <input name="quantity" id="quantity @item.Id" value="@item.quantity" type="number" min="0" max="@item.itemId.QuantityRemaining" onchange="vchange('@item.Id')" /></div>
-                            <input  style="font-size:8px;" type="submit" value="change" name="action">
-                        </div>
-
-                    </div>
+    @if (!User.Identity?.IsAuthenticated ?? false)
+    {
+        <div class="guest-notification mb-4 p-4 bg-light border rounded">
+            <h4>You're shopping as a guest</h4>
+            <p>Would you like to:</p>
+            <div class="d-flex gap-2">
+                <a asp-page="/Account/Login" asp-route-returnUrl="@Url.Page("/Cart")" class="btn btn-outline-primary">Sign In</a>
+                <a asp-page="/Account/Register" asp-route-returnUrl="@Url.Page("/Cart")" class="btn btn-outline-secondary">Register</a>
+                <form method="post" class="d-inline">
+                    <button type="submit" asp-page-handler="ContinueAsGuest" class="btn btn-success">Continue as Guest</button>
                 </form>
-                <hr />
-            }
-    
-        @:<a asp-page="/Cart" >Total Price @Model.Items.Sum(x=>x.quantity*x.itemId.Price)</a>
+            </div>
+        </div>
     }
-    </div>
-    <a asp-page="Index" >Home</a>
-    <a asp-page="Order">Order</a>
-    <a asp-page="CheckOUt">CheckOUt</a>
-    <br />
-    <br />
-    <br />
-    <br />
+
+    @if (Model.Items != null && Model.Items.Any())
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="~/Images/Products/Thumbnails/@(item.Item?.ImageUrl ?? "placeholder.jpg")" 
+                                         alt="@(item.Item?.Name ?? "Product")" 
+                                         style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
+                                    <div>
+                                        <h6 class="mb-0">@(item.Item?.Name ?? "Unnamed Product")</h6>
+                                        <small class="text-muted">@(item.Item?.Description ?? "No description available")</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>$@(item.Item?.Price.ToString("F2") ?? "0.00")</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <form method="post" class="d-inline">
+                                        <input type="hidden" name="itemId" value="@item.ItemId" />
+                                        <button type="submit" asp-page-handler="UpdateQuantity" asp-route-action="decrease"
+                                                class="btn btn-sm btn-outline-secondary">-</button>
+                                    </form>
+                                    <span class="mx-2">@item.Quantity</span>
+                                    <form method="post" class="d-inline">
+                                        <input type="hidden" name="itemId" value="@item.ItemId" />
+                                        <button type="submit" asp-page-handler="UpdateQuantity" asp-route-action="increase"
+                                                class="btn btn-sm btn-outline-secondary">+</button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td>$@((item.Quantity * (item.Item?.Price ?? 0)).ToString("F2"))</td>
+                            <td>
+                                <form method="post" class="d-inline">
+                                    <input type="hidden" name="itemId" value="@item.Id" />
+                                    <button type="submit" name="action" value="delete" 
+                                            class="btn btn-sm btn-danger">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                        <td colspan="2">
+                            <strong>$@Model.Items.Sum(x => x.Quantity * (x.Item?.Price ?? 0)).ToString("F2")</strong>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="/" class="btn btn-outline-secondary">Continue Shopping</a>
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <a asp-page="/Order" class="btn btn-primary">Proceed to Checkout</a>
+            }
+            else
+            {
+                <form method="post" class="d-inline">
+                    <button type="submit" asp-page-handler="ContinueAsGuest" class="btn btn-primary">Proceed to Checkout</button>
+                </form>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <h3>Your cart is empty</h3>
+            <p class="text-muted">Add some items to your cart to get started.</p>
+            <a href="/" class="btn btn-primary mt-3">Continue Shopping</a>
+        </div>
+    }
 </div>
+
+@section Scripts {
+    <style>
+        /* Remove number input spinners */
+        .no-spinners::-webkit-inner-spin-button,
+        .no-spinners::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .no-spinners {
+            -moz-appearance: textfield;
+        }
+    </style>
+    <script>
+        function updateQuantity(button, change) {
+            const input = button.parentElement.querySelector('input[name="quantity"]');
+            const currentValue = parseInt(input.value);
+            const maxValue = parseInt(input.max);
+            const newValue = currentValue + change;
+            
+            if (newValue >= 1 && newValue <= maxValue) {
+                input.value = newValue;
+                input.form.submit();
+            }
+        }
+    </script>
+}

@@ -1,11 +1,64 @@
 @page
 @model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.LogoutModel
 @{
-  ViewData["Title"] = "User logged out";
+    ViewData["Title"] = "Logout";
 }
-<h1>@ViewData["Title"]</h1>
-@{
-    <p>You've been logged out.
-        <a class="nav-link" asp-area="" asp-page="/Index">Click to continue.</a>
-    </p>
-}
+
+<div class="logout-container">
+    <div class="logout-box">
+        <h1 class="logout-title">Logging Out</h1>
+        <p class="logout-message">You are being logged out...</p>
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .logout-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        padding: 2rem;
+    }
+
+    .logout-box {
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .logout-title {
+        color: var(--text-color);
+        font-size: 24px;
+        font-weight: 300;
+        margin-bottom: 1rem;
+    }
+
+    .logout-message {
+        color: var(--secondary-text);
+        font-size: 14px;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+        background-color: var(--accent-color);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 4px;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #8fb3b1;
+    }
+</style>

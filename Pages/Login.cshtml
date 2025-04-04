@@ -4,40 +4,139 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<div class="row">
-<div class="col-md-4">
-    <section>
+<div class="login-container">
+    <div class="login-box">
+        <h1 class="login-title">Welcome Back</h1>
+        <p class="login-subtitle">Please log in to your account</p>
+        
         <form id="account" method="post">
-            <h4>Use a Local Account to Log In</h4>
-            <hr />
-             <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger validation-summary"></div>
+            
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
+                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" class="form-control" placeholder="Enter your email" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Input.Password" class="control-label"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password"></span>
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-info">Log In</button>
+                <button type="submit" class="btn btn-primary login-button">Log In</button>
             </div>
 
-            <div class="form-group">
-                <p>
-                <a asp-page="./Register">Register as a New User</a>>
+            <div class="form-group text-center">
+                <p class="register-link">
+                    Don't have an account? <a asp-page="./Register">Register here</a>
                 </p>
             </div>
         </form>
-    </section>
+    </div>
 </div>
-</div>
-@section Scripts {
-        <partial name="_ValidationScriptsPartial" />
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        padding: 2rem;
     }
+
+    .login-box {
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .login-title {
+        color: var(--text-color);
+        font-size: 24px;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .login-subtitle {
+        color: var(--secondary-text);
+        font-size: 14px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.2s ease;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--accent-color);
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: var(--accent-color);
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .login-button:hover {
+        background-color: #8fb3b1;
+    }
+
+    .validation-summary {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border-radius: 4px;
+        background-color: #fff5f5;
+        border: 1px solid #feb2b2;
+    }
+
+    .register-link {
+        margin-top: 1.5rem;
+        color: var(--secondary-text);
+        font-size: 14px;
+    }
+
+    .register-link a {
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

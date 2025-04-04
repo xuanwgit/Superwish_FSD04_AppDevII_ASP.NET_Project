@@ -7,18 +7,19 @@ using Superwish_FSD04_AppDevII_ASP.NET_Project.Data;
 
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
 {
-[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
-        private readonly Superwish_FSD04_AppDevII_ASP.NET_Project.Data.ToysDbContext _context;
+        private readonly ApplicationDbContext _db;
 
-        public DeleteModel(Superwish_FSD04_AppDevII_ASP.NET_Project.Data.ToysDbContext context)
+        public DeleteModel(ApplicationDbContext db)
         {
-            _context = context;
+            _db = db;
         }
 
         [BindProperty]
-        public Item Item { get; set; }
+        public Item Item { get; set; } = default!;
+        public bool HasOrders { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,12 +28,18 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
                 return NotFound();
             }
 
-            Item = await _context.Items.FirstOrDefaultAsync(m => m.Id == id);
+            var item = await _db.Items
+                .Include(i => i.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Item == null)
+            if (item == null)
             {
                 return NotFound();
             }
+
+            Item = item;
+            HasOrders = await _db.OrderItems.AnyAsync(oi => oi.ItemId == id);
+
             return Page();
         }
 
@@ -43,15 +50,26 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
                 return NotFound();
             }
 
-            Item = await _context.Items.FindAsync(id);
-
-            if (Item != null)
+            var item = await _db.Items.FindAsync(id);
+            if (item == null)
             {
-                _context.Items.Remove(Item);
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
 
-            return RedirectToPage("./Index");
+            try
+            {
+                _db.Items.Remove(item);
+                await _db.SaveChangesAsync();
+                TempData["SuccessMessage"] = $"Item '{item.Name}' was successfully deleted.";
+                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateException)
+            {
+                // If we get here, something went wrong with the delete
+                ModelState.AddModelError(string.Empty, 
+                    "Unable to delete this item. It may be referenced by orders or other records.");
+                return Page();
+            }
         }
     }
 }

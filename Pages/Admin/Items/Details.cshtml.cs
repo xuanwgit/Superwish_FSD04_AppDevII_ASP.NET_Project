@@ -11,16 +11,17 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
     [Authorize(Roles = "Admin")]
     public class DetailsModel : PageModel
     {
-        private readonly Superwish_FSD04_AppDevII_ASP.NET_Project.Data.ToysDbContext _context;
+        private readonly ApplicationDbContext _db;
         private readonly ILogger<DetailsModel> _logger;
 
-        public DetailsModel(Superwish_FSD04_AppDevII_ASP.NET_Project.Data.ToysDbContext context, ILogger<DetailsModel> logger)
+        public DetailsModel(ApplicationDbContext db, ILogger<DetailsModel> logger)
         {
-            _context = context;
+            _db = db;
             _logger = logger;
         }
 
-        public Item Item { get; set; }
+        public Item Item { get; set; } = default!;
+        public List<OrderItem> OrderItems { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,16 +30,24 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
                 return NotFound();
             }
 
-            // Article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
-
-            // Force eager loading of Author information, otherwise it will be null
-            Item = await _context.Items.Include(m => m.Price).FirstOrDefaultAsync(m => m.Id == id);
+            // Include Category for the item
+            Item = await _db.Items
+                .Include(i => i.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Item == null)
             {
                 return NotFound();
             }
+
+            // Get order history for this item
+            OrderItems = await _db.OrderItems
+                .Include(oi => oi.Order)
+                .Where(oi => oi.ItemId == id)
+                .OrderByDescending(oi => oi.Order.OrderDate)
+                .ToListAsync();
+
             return Page();
         }
-}
+    }
 }

@@ -8,22 +8,30 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Models
 {
     public class OrderItem
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public Item item_id { get; set; }
+        public int ItemId { get; set; }
 
         [Required]
-        public int quantity { get; set; }
+        public Item Item { get; set; } = null!;
 
         [Required]
-        public int price { get; set; }
+        public int Quantity { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Price { get; set; }
+
+        [Required]
+        public int OrderId { get; set; }
+
+        [Required]
+        public Order Order { get; set; } = null!;
     }
 }

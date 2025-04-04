@@ -1,0 +1,83 @@
+@page "{id:int}"
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.ItemDetailsModel
+
+<div class="container mt-5">
+    @if (Model.Item != null)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Model.Item.ImageUrl" alt="@Model.Item.Name" class="img-fluid rounded shadow" style="max-height: 400px; width: auto;" />
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-3">@Model.Item.Name</h2>
+                <p class="text-muted mb-3">Category: @Model.Item.Category?.Name</p>
+                <h4 class="mb-3 text-primary">$@Model.Item.Price.ToString("F2")</h4>
+                <div class="mb-4">
+                    <h5>Description:</h5>
+                    <p class="lead">@Model.Item.Description</p>
+                </div>
+                <div class="mb-4">
+                    <h5>Stock Status:</h5>
+                    @if (Model.Item.QuantityRemaining > 0)
+                    {
+                        <p class="text-success">In Stock (@Model.Item.QuantityRemaining available)</p>
+                    }
+                    else
+                    {
+                        <p class="text-danger">Out of Stock</p>
+                    }
+                </div>
+
+                @if (Model.Item.QuantityRemaining > 0)
+                {
+                    <form method="post" asp-page="/Cart" asp-page-handler="AddToCart">
+                        <input type="hidden" name="itemId" value="@Model.Item.Id" />
+                        <div class="form-group mb-3">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" class="form-control no-spinners" id="quantity" name="quantity" 
+                                   value="1" min="1" max="@Model.Item.QuantityRemaining" style="width: 100px;" />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+                    </form>
+                }
+                else
+                {
+                    <button class="btn btn-secondary btn-lg" disabled>Out of Stock</button>
+                }
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3>Product Details</h3>
+                <hr />
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>@Model.Item.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Item not found.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-submit quantity changes
+        document.querySelector('input[name="quantity"]')?.addEventListener('change', function() {
+            const max = parseInt(this.max);
+            const value = parseInt(this.value);
+            if (value > max) {
+                this.value = max;
+            } else if (value < 1) {
+                this.value = 1;
+            }
+        });
+    </script>
+} 

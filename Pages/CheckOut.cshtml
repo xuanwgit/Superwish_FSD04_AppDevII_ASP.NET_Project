@@ -13,17 +13,17 @@
         {
             <div class="col-sm-3">
                 <div class="itemInfo" style="width:150px">
-                    <div  style="color:#888888;font-size:8px;">Name  <span style="color:#000;font-size:16px;">@item.itemId?.Name</span></div>
-                    <div  style="color:#888888;font-size:8px;">qty   <span style="color:#000;font-size:16px;">@item.quantity</span></div>
-                    <div  style="color:#888888;font-size:8px;">price <span style="color:#000;font-size:16px;">@item.itemId?.Price</span></div>
-                    <div  style="color:#888888;font-size:8px;">total <span style="color:#000;font-size:16px;">@(item.quantity*item.itemId.Price)</span></div>
+                    <div  style="color:#888888;font-size:8px;">Name  <span style="color:#000;font-size:16px;">@item.Item?.Name</span></div>
+                    <div  style="color:#888888;font-size:8px;">qty   <span style="color:#000;font-size:16px;">@item.Quantity</span></div>
+                    <div  style="color:#888888;font-size:8px;">price <span style="color:#000;font-size:16px;">@item.Item?.Price</span></div>
+                    <div  style="color:#888888;font-size:8px;">total <span style="color:#000;font-size:16px;">@(item.Quantity*item.Item.Price)</span></div>
 
                 </div>
             </div>
             <br><hr><br>
 
         }
-        <div>pay : @Model.Items.Sum(x=>(x.quantity*x.itemId.Price))</div>
+        <div>pay : @Model.Items.Sum(x=>(x.Quantity*x.Item.Price))</div>
         <div><a href="/CheckOut?action=checkout">pay</a></div>
 
     }

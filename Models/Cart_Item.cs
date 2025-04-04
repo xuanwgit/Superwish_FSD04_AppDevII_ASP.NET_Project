@@ -12,16 +12,22 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Models
 {
     public class Cart_Item
     {
-    
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
-        public IdentityUser userId { get; set; }
 
         [Required]
-        public Item itemId { get; set; }
+        public string UserId { get; set; } = string.Empty;
+
         [Required]
-        public int quantity { get; set; }
+        public IdentityUser User { get; set; } = null!;
+
+        [Required]
+        public int ItemId { get; set; }
+
+        [Required]
+        public Item Item { get; set; } = null!;
+
+        [Required]
+        public int Quantity { get; set; }
     }
 }

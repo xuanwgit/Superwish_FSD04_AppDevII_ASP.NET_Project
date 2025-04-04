@@ -1,62 +1,452 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<h1>Welcome to SuperWish!</h1>
-<div id="featureditem" class="row">
-    <div class="col-sm-8">
-        <img alt="Featured Item" src="@Model.FeaturedItem.ImageUrl" class="img-fluid rounded"/>
-       
-    </div>
-    <div id="featuredItemInfo" class="col-sm-4">
-        <div id="itemInfo">
-            <h2>@Model.FeaturedItem.Name</h2>
-            <p class="price">$@string.Format("{0:f}", Model.FeaturedItem.Price)</p>
-            <p class="description">@Model.FeaturedItem.Description</p>
-        </div>
-        <div id="callToAction">
+<style>
+    /* Reset and base styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-            <a class="btn btn-danger order-button" asp-page="/Cart" asp-route-id="@Model.FeaturedItem.Id" title="Cart @Model.FeaturedItem.Name">Add to Cart</a>
+    body {
+        background-color: #FFF5F5;
+    }
+
+    /* Main container styles */
+    .main-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 20px;
+    }
+
+    /* Hero section styles */
+    .hero-section {
+        width: 100%;
+        height: 500px;
+        position: relative;
+        margin: 2rem 0;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #FFFFFF;
+        width: 90%;
+        max-width: 600px;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .hero-button {
+        display: inline-block;
+        padding: 0.8rem 2rem;
+        background-color: #FFFFFF;
+        color: #333333;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-button:hover {
+        background-color: #FFE5E5;
+        transform: translateY(-2px);
+    }
+
+    /* Category section styles */
+    .category-section {
+        margin: 4rem 0;
+        padding: 2rem 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background-color: #FFB6C1;
+    }
+
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .category-card {
+        position: relative;
+        height: 300px;
+        background-color: #FFFFFF;
+        overflow: hidden;
+        text-decoration: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .category-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .category-card:hover .category-image {
+        transform: scale(1.1);
+    }
+
+    .category-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+        padding: 1.5rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .category-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .category-link {
+        padding: 0.6rem 1.5rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333333;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .category-link:hover {
+        background-color: #FFFFFF;
+        transform: scale(1.05);
+    }
+
+    /* Featured and Product sections */
+    .featured-section,
+    .products-section {
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 3rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        color: #666666;
+        margin-bottom: 1rem;
+    }
+
+    .card-footer {
+        background-color: transparent;
+        border-top: 1px solid #EEEEEE;
+        padding: 1rem 1.5rem;
+    }
+
+    .btn-primary {
+        background-color: #FFB6C1;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #FF9AAA;
+        transform: translateY(-2px);
+    }
+
+    /* Responsive styles */
+    @@media (max-width: 768px) {
+        .main-container {
+            padding: 0 15px;
+        }
+
+        .hero-section {
+            height: 400px;
+            margin: 1rem 0;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .category-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            height: 250px;
+        }
+
+        .featured-section,
+        .products-section {
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card-img-top {
+            height: 200px;
+        }
+    }
+</style>
+
+<div class="main-container">
+    <section class="hero-section">
+        <img src="~/images/hero.jpg" alt="Welcome to Superwish Toys" class="hero-image">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Superwish</h1>
+            <p class="hero-subtitle">Discover our collection of handcrafted toys that bring joy to every child</p>
+            <a href="#categories" class="hero-button">Shop Now</a>
         </div>
-    </div>
+    </section>
+
+    <section class="category-section" id="categories">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <a href="/Categories/Plushes" class="category-card">
+                <img src="~/images/plushes.jpg" alt="Plushes" class="category-image">
+                <div class="category-content">
+                    <h2 class="category-title">Plushes</h2>
+                    <span class="category-link">Shop Now</span>
+                </div>
+            </a>
+            <a href="/Categories/Prints" class="category-card">
+                <img src="~/images/prints.jpg" alt="Prints" class="category-image">
+                <div class="category-content">
+                    <h2 class="category-title">Prints</h2>
+                    <span class="category-link">Shop Now</span>
+                </div>
+            </a>
+            <a href="/Categories/PushToys" class="category-card">
+                <img src="~/images/push-toys.jpg" alt="Push Toys" class="category-image">
+                <div class="category-content">
+                    <h2 class="category-title">Push Toys</h2>
+                    <span class="category-link">Shop Now</span>
+                </div>
+            </a>
+            <a href="/Categories/Teethers" class="category-card">
+                <img src="~/images/teethers.jpg" alt="Teethers" class="category-image">
+                <div class="category-content">
+                    <h2 class="category-title">Teethers</h2>
+                    <span class="category-link">Shop Now</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    @if (Model.FeaturedItem != null)
+    {
+        <section class="featured-section">
+            <h2 class="section-title">Featured Item</h2>
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@Model.FeaturedItem.ImageUrl" class="img-fluid rounded-start" alt="@Model.FeaturedItem.Name">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h3 class="card-title">@Model.FeaturedItem.Name</h3>
+                            <p class="card-text">@Model.FeaturedItem.Description</p>
+                            <p class="card-text"><small class="text-muted">Category: @Model.FeaturedItem.Category.Name</small></p>
+                            <p class="h5 mb-3">Price: $@Model.FeaturedItem.Price.ToString("F2")</p>
+                            <a href="/ItemDetails/@Model.FeaturedItem.Id" class="btn btn-primary">VIEW DETAILS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+    @if (!Model.Items.Any())
+    {
+        <div class="alert alert-info mt-4">
+            <h4>Welcome to Superwish Toys!</h4>
+            <p>No items are available yet. Please check back later or contact an administrator.</p>
+            @if (User.IsInRole("Admin"))
+            {
+                <p>
+                    <a href="/Admin/Items/Create" class="btn btn-primary">Add New Item</a>
+                </p>
+            }
+        </div>
+    }
+
+    @if (Model.InStockItems.Any())
+    {
+        <section class="products-section">
+            <h2 class="section-title">Available Items</h2>
+            <div class="row g-4">
+                @foreach (var item in Model.InStockItems)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">@item.Description</p>
+                                <p class="card-text"><small class="text-muted">Category: @(item.Category?.Name ?? "Uncategorized")</small></p>
+                                <p class="card-text">
+                                    <strong>Price: $@item.Price.ToString("F2")</strong>
+                                    <span class="badge bg-success ms-2">In Stock: @item.QuantityRemaining</span>
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <form method="post" asp-page="/Cart" asp-page-handler="AddToCart" class="d-flex justify-content-between align-items-center">
+                                    <input type="hidden" value="@item.Id" name="itemId" />
+                                    <div class="input-group" style="max-width: 120px;">
+                                        <span class="input-group-text">Qty</span>
+                                        <input id="quantity_@item.Id" 
+                                               name="quantity" 
+                                               type="number" 
+                                               class="form-control"
+                                               value="1" 
+                                               min="1" 
+                                               max="@item.QuantityRemaining"
+                                               onchange="updateStock(@item.Id)" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
+    @if (Model.OutOfStockItems.Any())
+    {
+        <section class="products-section">
+            <h2 class="section-title">Out of Stock Items</h2>
+            <div class="row g-4">
+                @foreach (var item in Model.OutOfStockItems)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-img-overlay d-flex align-items-center justify-content-center" style="background-color: rgba(0,0,0,0.5);">
+                                <span class="badge bg-danger fs-5">Out of Stock</span>
+                            </div>
+                            <img src="@item.ImageUrl" class="card-img-top" style="opacity: 0.5;" alt="@item.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">@item.Description</p>
+                                <p class="card-text"><small class="text-muted">Category: @item.Category.Name</small></p>
+                                <p class="card-text"><strong>Price: $@item.Price.ToString("F2")</strong></p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-secondary w-100" disabled>Out of Stock</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
 </div>
+
 <script>
-    function vchange(id) {
-        var stock = document.getElementById('stock ' + id);
-        var qty = document.getElementById('quantity ' + id);
-        var val = qty.max - qty.value
-        stock.innerText = val;
+    function updateStock(itemId) {
+        const qtyInput = document.getElementById(`quantity_${itemId}`);
+        if (qtyInput.value > parseInt(qtyInput.max)) {
+            qtyInput.value = qtyInput.max;
+        }
+        if (qtyInput.value < parseInt(qtyInput.min)) {
+            qtyInput.value = qtyInput.min;
+        }
     }
 </script>
-
-<div id="itemsWrapper" class="row">
-    @foreach (var item in Model.Items)
-{
-    <div class="col-sm-3">
-        <a asp-page="/Cart" asp-route-id="@item.Id" title="Order @item.Name">
-            <div class="itemInfo">
-                <h3>@item.Name</h3>
-                <img class="item-image img-fluid img-thumbnail" src="@item.ImageUrl" alt="Image of @item.Name" />
-
-                <p class="description">@item.Description</p>
-            </div>
-        </a>
-        <div class="action">
-            <form action="/Cart" method="get">
-                <input type="hidden" value="@item.Id" name="Id" />
-                <input type="submit" name="action" class="btn btn-sm btn-danger order-button float-right" value="Add to Cart" />
-                <p class="price float-left">$@string.Format("{0:f}", item.Price)</p>
-                <p>
-                    stock : <span id="stock @item.Id">@item.QuantityRemaining </span>
-
-                </p>
-                <p>Qty:<input id="quantity @item.Id" name="quantity" type="number" value="0" min="0" max=@item.QuantityRemaining onchange="vchange('@item.Id')" /></p>
-
-            </form>
-        </div>
-    </div>
-
-}
-</div>

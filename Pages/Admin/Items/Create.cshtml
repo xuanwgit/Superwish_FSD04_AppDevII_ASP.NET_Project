@@ -1,43 +1,96 @@
 ﻿@page
 @model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items.CreateModel
 @{
-  ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Item";
 }
 
-<h1>Create</h1>
+<div class="container mt-4">
+    <h2>Create New Item</h2>
+    <div class="row">
+        <div class="col-md-8">
+            @if (!ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+            }
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                    <label asp-for="Item.Name" class="control-label">Item Name</label>
+                    <input asp-for="Item.Name" class="form-control" />
+                    <span asp-validation-for="Item.Name" class="text-danger"></span>
+                </div>
 
-<h4>Item</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Item.Name" class="control-label"></label>
-                <input asp-for="Item.Name" class="form-control" />
-                <span asp-validation-for="Item.Name" class="text-danger"></span>
+                <div class="form-group mb-3">
+                    <label asp-for="Item.Description" class="control-label">Description</label>
+                    <textarea asp-for="Item.Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Item.Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Item.Price" class="control-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input asp-for="Item.Price" class="form-control" type="number" step="0.01" min="0" />
+                    </div>
+                    <span asp-validation-for="Item.Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Item.QuantityRemaining" class="control-label">Quantity in Stock</label>
+                    <input asp-for="Item.QuantityRemaining" class="form-control" type="number" min="0" />
+                    <span asp-validation-for="Item.QuantityRemaining" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Item.CategoryId" class="control-label">Category</label>
+                    <select asp-for="Item.CategoryId" class="form-select" asp-items="Model.Categories">
+                        <option value="">-- Select Category --</option>
+                    </select>
+                    <span asp-validation-for="Item.CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Item Image</label>
+                    <input type="file" name="ImageFile" class="form-control" accept="image/*" onchange="previewImage(event)" />
+                    <small class="form-text text-muted">Upload an image file (jpg, png, gif). Maximum size: 5MB</small>
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Image Preview</h5>
+                </div>
+                <div class="card-body">
+                    <div id="imagePreview" class="text-center mb-3">
+                        <img src="https://via.placeholder.com/300" class="img-fluid" alt="Preview" id="previewImage" />
+                    </div>
+                    <p class="card-text">Upload an image to see preview.</p>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Item.Description" class="control-label"></label>
-                <input asp-for="Item.Description" class="form-control" />
-                <span asp-validation-for="Item.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.Price" class="control-label"></label>
-                <input asp-for="Item.Price" class="form-control" />
-                <span asp-validation-for="Item.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 }
