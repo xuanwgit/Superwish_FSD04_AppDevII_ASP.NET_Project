@@ -1,0 +1,145 @@
+@page
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Footer.OurStoryModel
+@{
+    ViewData["Title"] = "Our Story";
+}
+
+<div class="story-container">
+    <div class="story-header">
+        <h1>Our Story</h1>
+        <p class="subtitle">Creating Joy Through Toys Since 2024</p>
+    </div>
+
+    <div class="story-content">
+        <section class="story-section">
+            <h2>How It All Began</h2>
+            <p>Superwish Toys started with a simple dream: to bring smiles to children's faces through high-quality, imaginative toys. Our journey began in 2024 when a group of toy enthusiasts came together with a shared vision of creating a toy store that would stand out for its exceptional products and customer service.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Our Mission</h2>
+            <p>At Superwish Toys, our mission is to inspire creativity, encourage learning, and spread joy through carefully curated toys that meet the highest standards of quality and safety. We believe that every child deserves access to toys that not only entertain but also contribute to their development.</p>
+        </section>
+
+        <section class="story-section">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3>Quality</h3>
+                    <p>We carefully select each toy to ensure it meets our high standards for durability, safety, and educational value.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Innovation</h3>
+                    <p>We constantly seek out new and innovative toys that challenge minds and inspire creativity.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Customer Focus</h3>
+                    <p>We put our customers first, offering personalized service and expert guidance in toy selection.</p>
+                </div>
+                <div class="value-item">
+                    <h3>Community</h3>
+                    <p>We actively engage with our community through events, workshops, and charitable initiatives.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <h2>Looking Forward</h2>
+            <p>As we continue to grow, our commitment to bringing joy through toys remains unchanged. We're excited about the future and look forward to being part of many more childhood memories to come.</p>
+        </section>
+    </div>
+</div>
+
+<style>
+    .story-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .story-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+        background-color: var(--background-color);
+        border-radius: 8px;
+    }
+
+    .story-header h1 {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+    }
+
+    .story-section {
+        margin-bottom: 3rem;
+    }
+
+    .story-section h2 {
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .story-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+
+    .story-section p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--text-color);
+    }
+
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .value-item {
+        background-color: var(--background-color);
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .value-item h3 {
+        color: var(--accent-color);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .value-item p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    @@media (max-width: 768px) {
+        .values-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .story-container {
+            padding: 1rem;
+        }
+
+        .story-header h1 {
+            font-size: 2rem;
+        }
+    }
+</style> 

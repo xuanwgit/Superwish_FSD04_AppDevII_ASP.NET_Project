@@ -1,0 +1,239 @@
+@page
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Footer.FAQModel
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<div class="faq-container">
+    <div class="faq-header">
+        <h1>Frequently Asked Questions</h1>
+        <p class="subtitle">Find answers to common questions about Superwish Toys</p>
+    </div>
+
+    <div class="faq-content">
+        <div class="faq-section">
+            <h2>Ordering & Shipping</h2>
+            <div class="faq-items">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        How long does shipping take?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Standard shipping within Canada typically takes 3-5 business days. Express shipping options are available at checkout for faster delivery.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        Do you ship internationally?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Currently, we only ship within Canada. We're working on expanding our shipping options to other countries in the future.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        What payment methods do you accept?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and Interac e-Transfer for Canadian customers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Returns & Refunds</h2>
+            <div class="faq-items">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        What is your return policy?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer a 30-day return policy for unused items in their original packaging. Please contact us for a return authorization before sending any items back.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        How long do refunds take to process?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Once we receive your return, refunds are typically processed within 3-5 business days. The time it takes for the refund to appear in your account may vary depending on your payment method and financial institution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>Product Information</h2>
+            <div class="faq-items">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        Are your toys safe for children?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, all our toys meet or exceed Canadian safety standards. We carefully select products from reputable manufacturers and regularly review safety certifications.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleAnswer(this)">
+                        Do you offer gift wrapping?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we offer gift wrapping services for a small additional fee. You can select this option during checkout and even include a personalized message.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .faq-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .faq-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .faq-header h1 {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+    }
+
+    .faq-section {
+        margin-bottom: 3rem;
+    }
+
+    .faq-section h2 {
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .faq-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+
+    .faq-items {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .faq-item {
+        background-color: var(--background-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        width: 100%;
+        padding: 1.25rem;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--text-color);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s;
+    }
+
+    .faq-question:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-question i {
+        transition: transform 0.3s;
+    }
+
+    .faq-question.active i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease-out;
+    }
+
+    .faq-answer p {
+        padding: 0 1.25rem 1.25rem;
+        margin: 0;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 500px;
+    }
+
+    @@media (max-width: 768px) {
+        .faq-container {
+            padding: 1rem;
+        }
+
+        .faq-header h1 {
+            font-size: 2rem;
+        }
+
+        .faq-question {
+            font-size: 1rem;
+            padding: 1rem;
+        }
+    }
+</style>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <script>
+        function toggleAnswer(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all other items
+            document.querySelectorAll('.faq-item').forEach(faqItem => {
+                faqItem.classList.remove('active');
+                faqItem.querySelector('.faq-question').classList.remove('active');
+            });
+
+            // Toggle the clicked item
+            if (!isActive) {
+                item.classList.add('active');
+                button.classList.add('active');
+            }
+        }
+    </script>
+} 

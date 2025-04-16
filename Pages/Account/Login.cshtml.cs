@@ -24,9 +24,6 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Account
 
         public string ReturnUrl { get; set; } = string.Empty;
 
-        [TempData]
-        public string ErrorMessage { get; set; } = string.Empty;
-
         public class InputModel
         {
             [Required]
@@ -41,26 +38,17 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string? returnUrl = null)
         {
-            if (!string.IsNullOrEmpty(ErrorMessage))
-            {
-                ModelState.AddModelError(string.Empty, ErrorMessage);
-            }
-
             returnUrl ??= Url.Content("~/");
-
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
@@ -80,11 +68,8 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Account
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
 
             return Page();

@@ -1,0 +1,230 @@
+@page
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Footer.ContactUsModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="contact-container">
+    <div class="contact-header">
+        <h1>Contact Us</h1>
+        <p class="subtitle">We'd Love to Hear from You</p>
+    </div>
+
+    <div class="contact-content">
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <div class="info-items">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>123 Toy Street<br>Montreal, QC H1H 1H1<br>Canada</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>+1 (514) 123-4567</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@superwishtoys.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Business Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                           Saturday: 10:00 AM - 5:00 PM<br>
+                           Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+                
+                <div class="form-group">
+                    <label asp-for="Contact.Name">Name</label>
+                    <input asp-for="Contact.Name" class="form-control" required />
+                    <span asp-validation-for="Contact.Name" class="validation-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Contact.Email">Email</label>
+                    <input asp-for="Contact.Email" type="email" class="form-control" required />
+                    <span asp-validation-for="Contact.Email" class="validation-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Contact.Subject">Subject</label>
+                    <input asp-for="Contact.Subject" class="form-control" required />
+                    <span asp-validation-for="Contact.Subject" class="validation-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Contact.Message">Message</label>
+                    <textarea asp-for="Contact.Message" class="form-control" rows="5" required></textarea>
+                    <span asp-validation-for="Contact.Message" class="validation-error"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .contact-header h1 {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .contact-info, .contact-form {
+        background-color: var(--background-color);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-info h2, .contact-form h2 {
+        color: var(--accent-color);
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .contact-info h2::after, .contact-form h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+
+    .info-items {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .info-item i {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        margin-top: 0.25rem;
+    }
+
+    .info-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+    }
+
+    .info-item p {
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--accent-color);
+    }
+
+    .validation-error {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    .btn-primary {
+        background-color: var(--accent-color);
+        color: white;
+        padding: 0.75rem 2rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .btn-primary:hover {
+        background-color: #8fb3b1;
+    }
+
+    @@media (max-width: 768px) {
+        .contact-content {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-container {
+            padding: 1rem;
+        }
+
+        .contact-header h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <partial name="_ValidationScriptsPartial" />
+} 

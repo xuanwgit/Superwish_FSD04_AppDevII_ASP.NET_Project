@@ -1,0 +1,136 @@
+@page
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.AboutModel
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<div class="about-container">
+    <section class="about-hero">
+        <h1>About Superwish</h1>
+        <p class="lead">Bringing Joy to Every Child's World</p>
+    </section>
+
+    <section class="about-content">
+        <div class="about-section">
+            <h2>Our Story</h2>
+            <p>Founded with a vision to create magical moments in children's lives, Superwish has been dedicated to providing high-quality, educational, and entertaining toys since our inception. We believe that every toy has the potential to spark imagination, foster learning, and create lasting memories.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>At Superwish, our mission is to inspire creativity and joy through carefully curated toys that encourage learning through play. We are committed to providing safe, innovative, and engaging products that contribute to children's development and happiness.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Our Values</h2>
+            <ul class="values-list">
+                <li><strong>Quality:</strong> We carefully select each product to ensure the highest standards of safety and durability.</li>
+                <li><strong>Education:</strong> We believe in the power of play-based learning and choose toys that support child development.</li>
+                <li><strong>Customer Care:</strong> We're dedicated to providing exceptional service and creating a delightful shopping experience.</li>
+                <li><strong>Community:</strong> We actively engage with our community and support initiatives that benefit children's education and well-being.</li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<style>
+    .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .about-hero {
+        text-align: center;
+        padding: 4rem 0;
+        background-color: var(--background-color);
+        border-radius: 8px;
+        margin-bottom: 3rem;
+    }
+
+    .about-hero h1 {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        color: var(--secondary-text);
+    }
+
+    .about-content {
+        display: grid;
+        gap: 3rem;
+    }
+
+    .about-section {
+        background-color: var(--background-color);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-section h2 {
+        color: var(--text-color);
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+    }
+
+    .about-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background-color: var(--accent-color);
+    }
+
+    .about-section p {
+        color: var(--secondary-text);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .values-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .values-list li {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+        position: relative;
+        color: var(--secondary-text);
+    }
+
+    .values-list li::before {
+        content: '•';
+        color: var(--accent-color);
+        position: absolute;
+        left: 0;
+    }
+
+    .values-list strong {
+        color: var(--text-color);
+    }
+
+    @*Media query with escaped @ symbol*@
+    @@media (max-width: 768px) {
+        .about-hero {
+            padding: 2rem 0;
+        }
+
+        .about-hero h1 {
+            font-size: 2rem;
+        }
+
+        .about-section {
+            padding: 1.5rem;
+        }
+    }
+</style> 

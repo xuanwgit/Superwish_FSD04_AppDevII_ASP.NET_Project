@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Superwish_FSD04_AppDevII_ASP.NET_Project.Data;
 using Superwish_FSD04_AppDevII_ASP.NET_Project.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
 {
@@ -21,6 +22,8 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
         public string NameSort { get; set; } = string.Empty;
         public string PriceSort { get; set; } = string.Empty;
         public string StockSort { get; set; } = string.Empty;
+        public string? ErrorMessage { get; set; }
+        public string? SuccessMessage { get; set; }
 
         public async Task OnGetAsync(string sortOrder)
         {
@@ -45,6 +48,35 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Items
             };
 
             Items = await query.ToListAsync();
+        }
+
+        public async Task<IActionResult> OnPostDeleteAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var item = await _db.Items.FindAsync(id);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            // Check if the item has any associated order items
+            var hasOrderItems = await _db.OrderItems.AnyAsync(oi => oi.ItemId == id);
+            if (hasOrderItems)
+            {
+                ErrorMessage = "Cannot delete this item because it has associated orders.";
+                return Page();
+            }
+
+            _db.Items.Remove(item);
+            await _db.SaveChangesAsync();
+            SuccessMessage = "Item deleted successfully.";
+
+            return RedirectToPage();
         }
     }
 }

@@ -25,6 +25,7 @@ public class IndexModel : PageModel
     public List<Item> InStockItems { get; set; } = new List<Item>();
     public List<Item> OutOfStockItems { get; set; } = new List<Item>();
     public Item? FeaturedItem { get; set; }
+    public List<Category> Categories { get; set; } = new List<Category>();
 
     public async Task OnGetAsync()
     {
@@ -40,6 +41,9 @@ public class IndexModel : PageModel
         {
             FeaturedItem = InStockItems.ElementAt(new Random().Next(InStockItems.Count));
         }
+
+        // Get all categories
+        Categories = await _db.Categories.ToListAsync();
     }
 }
         

@@ -1,291 +1,20 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home page";
 }
 
-<style>
-    /* Reset and base styles */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        background-color: #FFF5F5;
-    }
-
-    /* Main container styles */
-    .main-container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 2rem auto;
-        padding: 0 20px;
-    }
-
-    /* Hero section styles */
-    .hero-section {
-        width: 100%;
-        height: 500px;
-        position: relative;
-        margin: 2rem 0;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .hero-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: #FFFFFF;
-        width: 90%;
-        max-width: 600px;
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 2rem;
-        border-radius: 15px;
-        backdrop-filter: blur(5px);
-    }
-
-    .hero-title {
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-        line-height: 1.5;
-    }
-
-    .hero-button {
-        display: inline-block;
-        padding: 0.8rem 2rem;
-        background-color: #FFFFFF;
-        color: #333333;
-        text-decoration: none;
-        border-radius: 25px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .hero-button:hover {
-        background-color: #FFE5E5;
-        transform: translateY(-2px);
-    }
-
-    /* Category section styles */
-    .category-section {
-        margin: 4rem 0;
-        padding: 2rem 0;
-    }
-
-    .section-title {
-        text-align: center;
-        font-size: 2rem;
-        font-weight: 600;
-        color: #333333;
-        margin-bottom: 2rem;
-        position: relative;
-        padding-bottom: 1rem;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 3px;
-        background-color: #FFB6C1;
-    }
-
-    .category-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-    }
-
-    .category-card {
-        position: relative;
-        height: 300px;
-        background-color: #FFFFFF;
-        overflow: hidden;
-        text-decoration: none;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .category-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .category-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.6s ease;
-    }
-
-    .category-card:hover .category-image {
-        transform: scale(1.1);
-    }
-
-    .category-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
-        padding: 1.5rem;
-        transition: background-color 0.3s ease;
-    }
-
-    .category-title {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: #FFFFFF;
-        margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .category-link {
-        padding: 0.6rem 1.5rem;
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #333333;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .category-link:hover {
-        background-color: #FFFFFF;
-        transform: scale(1.05);
-    }
-
-    /* Featured and Product sections */
-    .featured-section,
-    .products-section {
-        background-color: #FFFFFF;
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 3rem 0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
-    .card-img-top {
-        height: 250px;
-        object-fit: cover;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-    }
-
-    .card-body {
-        padding: 1.5rem;
-    }
-
-    .card-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #333333;
-        margin-bottom: 1rem;
-    }
-
-    .card-text {
-        color: #666666;
-        margin-bottom: 1rem;
-    }
-
-    .card-footer {
-        background-color: transparent;
-        border-top: 1px solid #EEEEEE;
-        padding: 1rem 1.5rem;
-    }
-
-    .btn-primary {
-        background-color: #FFB6C1;
-        border: none;
-        padding: 0.6rem 1.5rem;
-        border-radius: 20px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #FF9AAA;
-        transform: translateY(-2px);
-    }
-
-    /* Responsive styles */
-    @@media (max-width: 768px) {
-        .main-container {
-            padding: 0 15px;
-        }
-
-        .hero-section {
-            height: 400px;
-            margin: 1rem 0;
-        }
-
-        .hero-title {
-            font-size: 2rem;
-        }
-
-        .category-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .category-card {
-            height: 250px;
-        }
-
-        .featured-section,
-        .products-section {
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .card-img-top {
-            height: 200px;
-        }
-    }
-</style>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="main-container">
-    <section class="hero-section">
-        <img src="~/images/hero.jpg" alt="Welcome to Superwish Toys" class="hero-image">
+    <section class="hero-section" style="background-image: url('/images/backgrounds/hero-bg.jpg');">
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">Welcome to Superwish</h1>
             <p class="hero-subtitle">Discover our collection of handcrafted toys that bring joy to every child</p>
@@ -293,39 +22,29 @@
         </div>
     </section>
 
-    <section class="category-section" id="categories">
+    <!-- Categories Section -->
+    <div class="category-section">
         <h2 class="section-title">Shop by Category</h2>
         <div class="category-grid">
-            <a href="/Categories/Plushes" class="category-card">
-                <img src="~/images/plushes.jpg" alt="Plushes" class="category-image">
-                <div class="category-content">
-                    <h2 class="category-title">Plushes</h2>
-                    <span class="category-link">Shop Now</span>
-                </div>
-            </a>
-            <a href="/Categories/Prints" class="category-card">
-                <img src="~/images/prints.jpg" alt="Prints" class="category-image">
-                <div class="category-content">
-                    <h2 class="category-title">Prints</h2>
-                    <span class="category-link">Shop Now</span>
-                </div>
-            </a>
-            <a href="/Categories/PushToys" class="category-card">
-                <img src="~/images/push-toys.jpg" alt="Push Toys" class="category-image">
-                <div class="category-content">
-                    <h2 class="category-title">Push Toys</h2>
-                    <span class="category-link">Shop Now</span>
-                </div>
-            </a>
-            <a href="/Categories/Teethers" class="category-card">
-                <img src="~/images/teethers.jpg" alt="Teethers" class="category-image">
-                <div class="category-content">
-                    <h2 class="category-title">Teethers</h2>
-                    <span class="category-link">Shop Now</span>
-                </div>
-            </a>
+            @foreach (var category in Model.Categories)
+            {
+                <a href="/Items?category=@category.Name" class="category-card">
+                    @if (!string.IsNullOrEmpty(category.ImageUrl))
+                    {
+                        <img src="@category.ImageUrl" alt="@category.Name" class="category-image" />
+                    }
+                    else
+                    {
+                        <img src="/images/placeholder.jpg" alt="@category.Name" class="category-image" />
+                    }
+                    <div class="category-content">
+                        <h3 class="category-title">@category.Name</h3>
+                        <span class="category-link">Shop Now</span>
+                    </div>
+                </a>
+            }
         </div>
-    </section>
+    </div>
 
     @if (Model.FeaturedItem != null)
     {
@@ -340,7 +59,7 @@
                         <div class="card-body">
                             <h3 class="card-title">@Model.FeaturedItem.Name</h3>
                             <p class="card-text">@Model.FeaturedItem.Description</p>
-                            <p class="card-text"><small class="text-muted">Category: @Model.FeaturedItem.Category.Name</small></p>
+                            <p class="card-text"><small class="text-muted">Category: @(Model.FeaturedItem.Category?.Name ?? "Uncategorized")</small></p>
                             <p class="h5 mb-3">Price: $@Model.FeaturedItem.Price.ToString("F2")</p>
                             <a href="/ItemDetails/@Model.FeaturedItem.Id" class="btn btn-primary">VIEW DETAILS</a>
                         </div>
@@ -374,14 +93,16 @@
                     <div class="col-md-4">
                         <div class="card h-100">
                             <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name">
-                            <div class="card-body">
-                                <h5 class="card-title">@item.Name</h5>
-                                <p class="card-text">@item.Description</p>
-                                <p class="card-text"><small class="text-muted">Category: @(item.Category?.Name ?? "Uncategorized")</small></p>
-                                <p class="card-text">
-                                    <strong>Price: $@item.Price.ToString("F2")</strong>
-                                    <span class="badge bg-success ms-2">In Stock: @item.QuantityRemaining</span>
-                                </p>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-truncate">@item.Name</h5>
+                                <p class="card-text description-truncate mb-3">@item.Description</p>
+                                <div class="mt-auto">
+                                    <p class="card-text mb-2"><small class="text-muted">Category: @(item.Category?.Name ?? "Uncategorized")</small></p>
+                                    <p class="card-text d-flex justify-content-between align-items-center">
+                                        <strong>Price: $@item.Price.ToString("F2")</strong>
+                                        <span class="badge bg-success">In Stock: @item.QuantityRemaining</span>
+                                    </p>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <form method="post" asp-page="/Cart" asp-page-handler="AddToCart" class="d-flex justify-content-between align-items-center">
@@ -438,6 +159,306 @@
         </section>
     }
 </div>
+
+<style>
+    /* Reset and base styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #FFF5F5;
+    }
+
+    /* Main container styles */
+    .main-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 20px;
+    }
+
+    /* Hero section styles */
+    .hero-section {
+        width: 100%;
+        height: 500px;
+        position: relative;
+        margin: 2rem 0;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    }
+
+    .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #FFFFFF;
+        width: 90%;
+        max-width: 600px;
+        padding: 2rem;
+        z-index: 1;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background-color: #FFFFFF;
+        color: #333333;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-button:hover {
+        background-color: #FFE5E5;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        color: #333333;
+    }
+
+    /* Category section styles */
+    .category-section {
+        margin: 4rem 0;
+        padding: 2rem 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background-color: #FFB6C1;
+    }
+
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        padding: 0 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .category-card {
+        position: relative;
+        height: 400px;
+        background-color: #FFFFFF;
+        overflow: hidden;
+        text-decoration: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .category-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .category-card:hover .category-image {
+        transform: scale(1.1);
+    }
+
+    .category-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+        padding: 2rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .category-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .category-link {
+        padding: 0.8rem 2rem;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333333;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .category-link:hover {
+        background-color: #FFFFFF;
+        transform: scale(1.05);
+    }
+
+    /* Featured and Product sections */
+    .featured-section,
+    .products-section {
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 3rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+        height: 100%;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333333;
+        margin-bottom: 0.5rem;
+        height: 1.5rem;
+        overflow: hidden;
+    }
+
+    .description-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 3rem;
+        line-height: 1.5;
+        color: #666666;
+    }
+
+    .card-footer {
+        background-color: transparent;
+        border-top: 1px solid #EEEEEE;
+        padding: 1rem 1.5rem;
+    }
+
+    .btn-primary {
+        background-color: #FFB6C1;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #FF9AAA;
+        transform: translateY(-2px);
+    }
+
+    /* Responsive styles */
+    @@media (max-width: 768px) {
+        .main-container {
+            padding: 0 15px;
+        }
+
+        .hero-section {
+            height: 400px;
+            margin: 1rem 0;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .category-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .category-card {
+            height: 300px;
+        }
+
+        .featured-section,
+        .products-section {
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .card-img-top {
+            height: 200px;
+        }
+    }
+</style>
 
 <script>
     function updateStock(itemId) {

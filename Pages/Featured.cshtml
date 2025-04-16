@@ -1,0 +1,192 @@
+@page
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.FeaturedModel
+@{
+    ViewData["Title"] = "Featured Items";
+}
+
+<div class="featured-container">
+    <section class="featured-hero">
+        <h1>Featured Items</h1>
+        <p class="lead">Discover Our Latest and Most Popular Products</p>
+    </section>
+
+    @if (Model.FeaturedItems != null && Model.FeaturedItems.Any())
+    {
+        <div class="featured-grid">
+            @foreach (var item in Model.FeaturedItems)
+            {
+                <div class="featured-card">
+                    <div class="featured-image">
+                        <img src="@item.ImageUrl" alt="@item.Name" />
+                    </div>
+                    <div class="featured-content">
+                        <h2>@item.Name</h2>
+                        <p class="description">@item.Description</p>
+                        <p class="category">Category: @(item.Category?.Name ?? "Uncategorized")</p>
+                        <p class="price">$@item.Price.ToString("F2")</p>
+                        <div class="card-actions">
+                            @if (item.QuantityRemaining > 0)
+                            {
+                                <form method="post" asp-page="/Cart" asp-page-handler="AddToCart" class="d-flex gap-2">
+                                    <input type="hidden" value="@item.Id" name="itemId" />
+                                    <div class="input-group">
+                                        <span class="input-group-text">Qty</span>
+                                        <input type="number" 
+                                               name="quantity" 
+                                               class="form-control"
+                                               value="1" 
+                                               min="1" 
+                                               max="@item.QuantityRemaining" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary" disabled>Out of Stock</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="no-items">
+            <p>No featured items available at the moment. Please check back later!</p>
+        </div>
+    }
+</div>
+
+<style>
+    .featured-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .featured-hero {
+        text-align: center;
+        padding: 4rem 0;
+        margin-bottom: 3rem;
+    }
+
+    .featured-hero h1 {
+        font-size: 2.5rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+    }
+
+    .featured-hero .lead {
+        font-size: 1.25rem;
+        color: var(--secondary-text);
+    }
+
+    .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .featured-card {
+        background-color: var(--background-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .featured-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .featured-image {
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .featured-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .featured-content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .featured-content h2 {
+        font-size: 1.25rem;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .featured-content .description {
+        color: var(--secondary-text);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 4.5rem;
+    }
+
+    .featured-content .category {
+        color: var(--secondary-text);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        margin-top: auto;
+    }
+
+    .featured-content .price {
+        font-size: 1.25rem;
+        color: var(--text-color);
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        margin-top: auto;
+    }
+
+    .input-group {
+        max-width: 120px;
+    }
+
+    .no-items {
+        text-align: center;
+        padding: 3rem;
+        background-color: var(--background-color);
+        border-radius: 8px;
+        color: var(--secondary-text);
+    }
+
+    @*Media query with escaped @ symbol*@
+    @@media (max-width: 768px) {
+        .featured-hero {
+            padding: 2rem 0;
+        }
+
+        .featured-hero h1 {
+            font-size: 2rem;
+        }
+
+        .featured-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style> 

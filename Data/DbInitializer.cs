@@ -43,6 +43,23 @@ namespace Superwish_FSD04_AppDevII_ASP.NET_Project.Data
                         await userManager.AddToRoleAsync(adminUser, "Admin");
                     }
                 }
+
+                // Initialize categories if none exist
+                if (!await context.Categories.AnyAsync())
+                {
+                    var categories = new List<Category>
+                    {
+                        new Category
+                        {
+                            Name = "Plushes",
+                            Description = Category.DefaultDescriptions["Plushes"]
+                        }
+                        // Add more categories here as needed
+                    };
+
+                    await context.Categories.AddRangeAsync(categories);
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }

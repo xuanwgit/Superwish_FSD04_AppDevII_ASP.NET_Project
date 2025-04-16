@@ -11,6 +11,97 @@
     <link rel="stylesheet" href="~/Superwish_FSD04_AppDevII_ASP.NET_Project.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            letter-spacing: 0.02em;
+            font-weight: 300;
+            font-size: 14px;
+        }
+
+        .site-wrapper {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Main content */
+        main {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            padding-bottom: 4rem; /* Add padding to prevent content from touching footer */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Footer Styles */
+        .footer-container {
+            flex-shrink: 0;
+            width: 100%;
+            background-color: var(--background-color);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 0 2rem;
+            margin-top: auto;
+            position: relative;
+            z-index: 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        /* Responsive footer */
+        @@media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hero section */
+        .hero-section {
+            position: relative;
+            z-index: 0;
+            margin-bottom: 2rem;
+        }
+
         /* Update root variables with Plumeti style */
         :root {
             --background-color: #FFFFFF;
@@ -26,12 +117,15 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
             background-color: var(--background-color);
             color: var(--text-color);
             font-family: "Helvetica Neue", Arial, sans-serif;
             letter-spacing: 0.02em;
             font-weight: 300;
             font-size: 14px;
+            position: relative;
         }
 
         /* Navigation and Header Styles */
@@ -94,16 +188,9 @@
             background-color: var(--background-color);
             padding: 4rem 0 2rem;
             border-top: 1px solid var(--border-color);
-            margin-top: auto;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            position: relative;
+            width: 100%;
+            z-index: 0;
         }
 
         .footer-section {
@@ -161,6 +248,9 @@
         main {
             flex: 1 0 auto;
             padding: 2rem 0;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
         }
 
         .container {
@@ -531,19 +621,6 @@
             text-transform: uppercase;
         }
 
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        .site-wrapper {
-            flex: 1 0 auto;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
         .announcement-close {
             position: absolute;
             right: 1rem;
@@ -776,6 +853,20 @@
             .navbar-brand img {
                 height: 40px;
             }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            main {
+                margin-bottom: 2rem;
+            }
         }
 
         /* Update the utility bar section */
@@ -785,13 +876,14 @@
                 @if (User.Identity?.IsAuthenticated ?? false)
                 {
                     <a href="/Account/Manage" class="me-3">My Account</a>
-                    <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" class="d-inline">
+                    <form asp-page="/Logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-link p-0">Logout</button>
                     </form>
                 }
                 else
                 {
                     <a href="/Login" class="me-3">Login</a>
+                    <a href="/Register" class="me-3">Register</a>
                 }
                 <a href="/Cart" class="cart-icon">
                     <i class="bi bi-bag"></i>
@@ -815,6 +907,40 @@
         .btn-link.nav-link:hover {
             color: var(--accent-color);
         }
+
+        /* Newsletter form styles */
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input[type="email"] {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .newsletter-form button {
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #8fb3b1;
+        }
+
+        /* Hero section z-index */
+        .hero-section {
+            position: relative;
+            z-index: 0;
+        }
     </style>
 </head>
 
@@ -834,13 +960,14 @@
                     @if (User.Identity?.IsAuthenticated ?? false)
                     {
                         <a href="/Account/Manage" class="me-3">My Account</a>
-                        <form asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" class="d-inline">
+                        <form asp-page="/Logout" method="post" class="d-inline">
                             <button type="submit" class="btn btn-link p-0">Logout</button>
                         </form>
                     }
                     else
                     {
                         <a href="/Login" class="me-3">Login</a>
+                        <a href="/Register" class="me-3">Register</a>
                     }
                     <a href="/Cart" class="cart-icon">
                         <i class="bi bi-bag"></i>
@@ -854,13 +981,9 @@
                         <img src="~/images/brand.PNG" alt="Superwish Toys">
                     </div>
                     <div class="nav-menu">
-                        <a class="nav-link" href="/">Home</a>
-                        <a class="nav-link" href="#">New</a>
-                        <a class="nav-link" href="#">Toys</a>
-                        <a class="nav-link" href="#">Baby Gifts</a>
-                        <a class="nav-link" href="#">Food & Drink</a>
-                        <a class="nav-link" href="#">Play</a>
-                        <a class="nav-link" href="#">Information</a>
+                        <a class="nav-link" asp-page="/Index">Home</a>
+                        <a class="nav-link" asp-page="/Featured">New</a>
+                        <a class="nav-link" asp-page="/About">About Us</a>
                     </div>
                 </div>
             </nav>
@@ -875,42 +998,40 @@
         <footer class="footer-container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Superwish Toys</h3>
+                    <h3>About Us</h3>
                     <ul>
-                        <li><a href="/About">Our Story</a></li>
-                        <li><a href="/Contact">Contact Us</a></li>
-                        <li><a href="/FAQ">FAQ</a></li>
+                        <li><a href="/Footer/OurStory">Our Story</a></li>
+                        <li><a href="/Footer/ContactUs">Contact Us</a></li>
+                        <li><a href="/Footer/FAQ">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Shop</h3>
+                    <h3>Customer Service</h3>
                     <ul>
-                        <li><a href="/Categories/Plushes">Plushes</a></li>
-                        <li><a href="/Categories/Prints">Prints</a></li>
-                        <li><a href="/Categories/PushToys">Push Toys</a></li>
-                        <li><a href="/Categories/Teethers">Teethers</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Help</h3>
+                    <h3>Connect With Us</h3>
                     <ul>
-                        <li><a href="/Shipping">Shipping</a></li>
-                        <li><a href="/Returns">Returns & Exchanges</a></li>
-                        <li><a href="/Privacy">Privacy Policy</a></li>
-                        <li><a href="/Terms">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <ul>
-                        <li><a href="#">Instagram</a></li>
                         <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Pinterest</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
                     </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and special offers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; @DateTime.Now.Year - Superwish Toys. All rights reserved.</p>
+                <p>&copy; 2024 Superwish Toys. All rights reserved.</p>
             </div>
         </footer>
     </div>

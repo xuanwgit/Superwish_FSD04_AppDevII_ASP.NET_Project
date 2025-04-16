@@ -1,38 +1,35 @@
 @page
-@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Categories.CreateModel
+@model Superwish_FSD04_AppDevII_ASP.NET_Project.Pages.Admin.Settings.BackgroundModel
 @{
-    ViewData["Title"] = "Create Category";
+    ViewData["Title"] = "Manage Background";
 }
 
 <div class="admin-container">
     <div class="admin-header">
-        <h1>Create New Category</h1>
-        <a asp-page="Index" class="btn btn-secondary">Back to Categories</a>
+        <h1>Manage Hero Background</h1>
+        <a href="/Admin" class="btn btn-secondary">Back to Admin</a>
     </div>
 
     <div class="form-container">
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
-            
-            <div class="form-group">
-                <label asp-for="Category.Name" class="control-label">Name</label>
-                <input asp-for="Category.Name" class="form-control" />
-                <span asp-validation-for="Category.Name" class="validation-error"></span>
-            </div>
+
+            @if (!string.IsNullOrEmpty(Model.CurrentBackgroundUrl))
+            {
+                <div class="current-background">
+                    <h3>Current Background</h3>
+                    <img src="@Model.CurrentBackgroundUrl" alt="Current background" class="background-preview" />
+                </div>
+            }
 
             <div class="form-group">
-                <label asp-for="Category.Description" class="control-label">Description</label>
-                <textarea asp-for="Category.Description" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="Category.Description" class="validation-error"></span>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label">Category Image</label>
-                <input type="file" name="ImageFile" id="ImageFile" class="form-control" accept="image/*" />
+                <label>Upload New Background Image</label>
+                <input type="file" name="BackgroundImage" class="form-control" accept="image/*" required />
+                <small class="text-muted">Recommended size: 1920x1080px or larger. The image will be used as the hero section background.</small>
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Create Category</button>
+                <button type="submit" class="btn btn-primary">Update Background</button>
             </div>
         </form>
     </div>
@@ -41,7 +38,7 @@
 <style>
     .admin-container {
         padding: 2rem;
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
     }
 
@@ -66,6 +63,25 @@
         padding: 2rem;
     }
 
+    .current-background {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+    }
+
+    .current-background h3 {
+        font-size: 18px;
+        margin-bottom: 1rem;
+    }
+
+    .background-preview {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
     .form-group {
         margin-bottom: 1.5rem;
     }
@@ -86,23 +102,9 @@
         transition: border-color 0.2s ease;
     }
 
-    .form-control:focus {
-        outline: none;
-        border-color: var(--accent-color);
-    }
-
-    .validation-summary {
-        color: #dc3545;
-        margin-bottom: 1rem;
-        padding: 1rem;
-        background-color: #fff5f5;
-        border: 1px solid #feb2b2;
-        border-radius: 4px;
-    }
-
-    .validation-error {
-        color: #dc3545;
-        font-size: 12px;
+    .text-muted {
+        color: #6c757d;
+        font-size: 0.875rem;
         margin-top: 0.25rem;
         display: block;
     }
@@ -142,8 +144,4 @@
         background-color: var(--accent-color);
         color: white;
     }
-</style>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-} 
+</style> 
