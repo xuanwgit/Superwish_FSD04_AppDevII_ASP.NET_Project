@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superwish - Toy Store Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            background-color: #FFB6C1;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .cta {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #FFB6C1;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #FF9AAA;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Superwish Toy Store</h1>
+            <p>An ASP.NET Core e-commerce application for toy shopping</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>About the Application</h2>
+            <p>Superwish is a modern e-commerce platform built with ASP.NET Core, designed to provide a seamless shopping experience for toy enthusiasts. The application features a responsive design, secure authentication, and a comprehensive admin dashboard.</p>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>User Features</h3>
+                <ul>
+                    <li>User registration and authentication</li>
+                    <li>Product browsing by categories</li>
+                    <li>Shopping cart functionality</li>
+                    <li>Order management</li>
+                    <li>Responsive design for all devices</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Admin Features</h3>
+                <ul>
+                    <li>Product management</li>
+                    <li>Category management</li>
+                    <li>Order processing</li>
+                    <li>User management</li>
+                    <li>Background customization</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>Technical Features</h3>
+                <ul>
+                    <li>ASP.NET Core 6.0</li>
+                    <li>Entity Framework Core</li>
+                    <li>PostgreSQL Database</li>
+                    <li>Razor Pages</li>
+                    <li>Bootstrap 5</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>Get Started</h2>
+            <p>To run the application locally, clone the repository and follow the setup instructions.</p>
+            <a href="https://github.com/xuanwgit/Superwish_FSD04_AppDevII_ASP.NET_Project" class="btn">View on GitHub</a>
+        </section>
+    </div>
+</body>
+</html> 
