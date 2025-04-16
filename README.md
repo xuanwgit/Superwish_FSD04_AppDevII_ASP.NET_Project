@@ -4,7 +4,6 @@ Superwish is a modern e-commerce platform specializing in high-quality, educatio
 ![image](https://github.com/user-attachments/assets/b8a22fa6-11df-4c07-b9dc-a83280e04047)
 
 ![image](https://github.com/user-attachments/assets/ee14c688-4af3-4940-b140-1e5b9cbb27b6)
-![image](https://github.com/user-attachments/assets/e39cc5be-f1a7-4eb7-8c9a-7d37dde7991a)
 ![image](https://github.com/user-attachments/assets/3f1777ee-e118-45ab-9948-dc77c77460f0)
 ![image](https://github.com/user-attachments/assets/6d69fdb3-1576-491c-969d-63c6e3cbb557)
 ![image](https://github.com/user-attachments/assets/5e0a7dc5-aaec-4df6-8af7-057304b37ac5)
