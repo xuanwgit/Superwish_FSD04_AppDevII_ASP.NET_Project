@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             color: #333;
+            background-color: #FFF5F5;
         }
         .container {
             max-width: 1200px;
@@ -22,6 +23,7 @@
             color: white;
             padding: 2rem 0;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         .features {
             display: grid;
@@ -32,8 +34,12 @@
         .feature-card {
             background: #fff;
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
         .cta {
             text-align: center;
@@ -45,11 +51,55 @@
             background-color: #FFB6C1;
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
         .btn:hover {
             background-color: #FF9AAA;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        section {
+            margin-bottom: 3rem;
+        }
+        h2 {
+            color: #333;
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background-color: #FFB6C1;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #FFB6C1;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -57,36 +107,38 @@
     <header>
         <div class="container">
             <h1>Superwish Toy Store</h1>
-            <p>An ASP.NET Core e-commerce application for toy shopping</p>
+            <p>A modern ASP.NET Core e-commerce platform for toy shopping</p>
         </div>
     </header>
 
     <div class="container">
         <section>
             <h2>About the Application</h2>
-            <p>Superwish is a modern e-commerce platform built with ASP.NET Core, designed to provide a seamless shopping experience for toy enthusiasts. The application features a responsive design, secure authentication, and a comprehensive admin dashboard.</p>
+            <p>Superwish is a comprehensive e-commerce platform built with ASP.NET Core, designed to provide a seamless shopping experience for toy enthusiasts. The application features a modern, responsive design, secure authentication, and a powerful admin dashboard for managing products, categories, and orders.</p>
         </section>
 
         <section class="features">
             <div class="feature-card">
                 <h3>User Features</h3>
                 <ul>
-                    <li>User registration and authentication</li>
-                    <li>Product browsing by categories</li>
-                    <li>Shopping cart functionality</li>
-                    <li>Order management</li>
+                    <li>Secure user registration and authentication</li>
+                    <li>Intuitive product browsing by categories</li>
+                    <li>Real-time shopping cart functionality</li>
+                    <li>Comprehensive order management system</li>
                     <li>Responsive design for all devices</li>
+                    <li>Contact form and FAQ section</li>
                 </ul>
             </div>
 
             <div class="feature-card">
                 <h3>Admin Features</h3>
                 <ul>
-                    <li>Product management</li>
-                    <li>Category management</li>
-                    <li>Order processing</li>
-                    <li>User management</li>
-                    <li>Background customization</li>
+                    <li>Complete product management system</li>
+                    <li>Dynamic category management</li>
+                    <li>Efficient order processing</li>
+                    <li>User management and roles</li>
+                    <li>Customizable background settings</li>
+                    <li>Real-time inventory tracking</li>
                 </ul>
             </div>
 
@@ -96,15 +148,16 @@
                     <li>ASP.NET Core 6.0</li>
                     <li>Entity Framework Core</li>
                     <li>PostgreSQL Database</li>
-                    <li>Razor Pages</li>
-                    <li>Bootstrap 5</li>
+                    <li>Razor Pages architecture</li>
+                    <li>Bootstrap 5 for responsive design</li>
+                    <li>Secure authentication with ASP.NET Identity</li>
                 </ul>
             </div>
         </section>
 
         <section class="cta">
             <h2>Get Started</h2>
-            <p>To run the application locally, clone the repository and follow the setup instructions.</p>
+            <p>To run the application locally, clone the repository and follow the setup instructions in the README.</p>
             <a href="https://github.com/xuanwgit/Superwish_FSD04_AppDevII_ASP.NET_Project" class="btn">View on GitHub</a>
         </section>
     </div>
